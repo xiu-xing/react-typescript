@@ -1,5 +1,5 @@
 import React from 'react';
-import { Theme, makeStyles, createStyles, ButtonBase, Container, ButtonGroup, Checkbox, Typography, IconButton, TextField, Input } from '@material-ui/core';
+import { Theme, makeStyles, createStyles, ButtonBase, Container, ButtonGroup, Checkbox, Typography, IconButton, TextField, Input, Box } from '@material-ui/core';
 import FromWrapper from './components/fromWapper';
 import BasicTextField from './components/basic-text-field';
 import Counter from './contains/for-exmaple';
@@ -57,9 +57,9 @@ const App: React.FunctionComponent<{}> = () => {
         variant="standard" />
       <Input type="number" defaultValue="Hello world" inputProps={{ 'aria-label': 'description' }} />
       {/* //Provider */}
-
-
-
+      <Box>
+        use git commit plugin
+      </Box>
     </FromWrapper>
   );
 }
