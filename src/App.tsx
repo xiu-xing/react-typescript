@@ -1,8 +1,9 @@
 import React from 'react';
-import { Theme, makeStyles, createStyles, ButtonBase, Container, ButtonGroup, Checkbox, Typography, IconButton, TextField, Input, Box } from '@material-ui/core';
+import { Theme, makeStyles, createStyles, ButtonBase, Container, ButtonGroup, Checkbox, Typography, IconButton, TextField, Input, Box, Link } from '@material-ui/core';
 import FromWrapper from './components/fromWapper';
 import BasicTextField from './components/basic-text-field';
-import Counter from './contains/for-exmaple';
+import Counter from './containers/userContainer';
+import LabTabs from './pages/tabpanel';
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,9 +58,10 @@ const App: React.FunctionComponent<{}> = () => {
         variant="standard" />
       <Input type="number" defaultValue="Hello world" inputProps={{ 'aria-label': 'description' }} />
       {/* //Provider */}
-      <Box>
-        use git commit plugin
+      <Box onClick={()=>{window.location.href="./pages/stepper"}}>
+      stepper
       </Box>
+      <LabTabs/>
     </FromWrapper>
   );
 }

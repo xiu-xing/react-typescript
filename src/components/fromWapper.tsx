@@ -2,6 +2,7 @@ import { Box, Button, IconButton, Theme, Typography } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { createStyles, makeStyles } from "@material-ui/styles";
 import React from "react";
+import stepper from "../pages/stepper"
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,7 +46,7 @@ const FromWrapper: React.FunctionComponent<FromWrapperProps> = (props) => {
           取消
         </Button>
         <Button variant="text" color="primary" onClick={() => {
-          console.log("submit");
+          window.location.href="../pages/stepper"
         }}>
           提交
         </Button>
