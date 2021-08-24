@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="高级搜索" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2" transform="translate(-367.000000, -469.000000)" fill="#4F709B">
+            <g id="结果" transform="translate(56.000000, 397.000000)">
+                <g id="内容" transform="translate(0.000000, 62.000000)">
+                    <g id="icon/24x24/arrow/down备份-2" transform="translate(311.323804, 10.000000)">
+                        <path d="M10.5,8.5 L10.5,3.3 L11.15,3.3 L11.15,2 L4.65,2 L4.65,3.3 L5.3,3.3 L5.3,8.5 L4,9.8 L4,11.1 L7.38,11.1 L7.38,15 L8.42,15 L8.42,11.1 L11.8,11.1 L11.8,9.8 L10.5,8.5 M5.82,9.8 L6.6,9.02 L6.6,3.3 L9.2,3.3 L9.2,9.02 L9.98,9.8 L5.82,9.8 Z" id="形状"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

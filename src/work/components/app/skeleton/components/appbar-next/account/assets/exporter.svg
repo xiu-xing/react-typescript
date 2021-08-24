@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="18px" viewBox="0 0 14 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/24x24/star/outline</title>
+    <g id="我的" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-2895.000000, -1137.000000)" fill="#000000" id="编组备份-4">
+            <g transform="translate(2858.000000, 802.000000)">
+                <g id="我的-通知栏备份-3" transform="translate(0.000000, 316.000000)">
+                    <g id="icon/24x24/star/outline" transform="translate(32.000000, 16.000000)">
+                        <rect id="矩形" fill-rule="nonzero" opacity="0" x="0" y="0" width="24" height="24"></rect>
+                        <path d="M5.25,20.1428571 L18.75,20.1428571 L18.75,18.2142857 L5.25,18.2142857 M18.75,9.53571429 L14.8928571,9.53571429 L14.8928571,3.75 L9.10714286,3.75 L9.10714286,9.53571429 L5.25,9.53571429 L12,16.2857143 L18.75,9.53571429 Z" id="形状" opacity="0.603562128"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

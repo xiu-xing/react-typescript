@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="详情页（新）" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="企业----风险等级" transform="translate(-85.000000, -439.000000)" fill="#E00000">
+            <g id="1备份" transform="translate(0.000000, 424.000000)">
+                <g id="LOGO" transform="translate(16.000000, 11.000000)">
+                    <g id="icon/程度" transform="translate(69.000000, 4.000000)">
+                        <path d="M8,2 C4.6865114,2 2,4.6865114 2,8 C2,11.3137377 4.6865114,14.0002491 8,14.0002491 C11.3137377,14.0002491 14,11.3137377 14,8 C14.0002491,4.6865114 11.3139868,2 8,2 Z M8.79860506,11.424835 L7.20164404,11.424835 L7.20164404,10.0582887 L8.79860506,10.0582887 L8.79860506,11.424835 Z M8.79860506,8.93112468 L7.20164404,8.93112468 L7.20164404,4.57541412 L8.79860506,4.57541412 L8.79860506,8.93112468 Z" id="形状"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

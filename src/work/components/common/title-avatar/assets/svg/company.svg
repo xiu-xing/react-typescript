@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>其他/logo</title>
+    <desc>Created with Sketch.</desc>
+    <g id="看板" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.603562128">
+        <g id="看板（拖动状态）" transform="translate(-170.000000, -482.000000)" fill="#000000">
+            <g id="编组" transform="translate(152.000000, 206.500000)">
+                <g id="编组-24" transform="translate(0.000000, 255.500000)">
+                    <g id="其他/标题栏/5">
+                        <g id="icon/24x24/company" transform="translate(16.000000, 17.000000)">
+                            <path d="M18,15 L16,15 L16,17 L18,17 M18,11 L16,11 L16,13 L18,13 M20,19 L12,19 L12,17 L14,17 L14,15 L12,15 L12,13 L14,13 L14,11 L12,11 L12,9 L20,9 M10,7 L8,7 L8,5 L10,5 M10,11 L8,11 L8,9 L10,9 M10,15 L8,15 L8,13 L10,13 M10,19 L8,19 L8,17 L10,17 M6,7 L4,7 L4,5 L6,5 M6,11 L4,11 L4,9 L6,9 M6,15 L4,15 L4,13 L6,13 M6,19 L4,19 L4,17 L6,17 M12,7 L12,3 L2,3 L2,21 L22,21 L22,7 L12,7 Z" id="形状"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
