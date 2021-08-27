@@ -1,0 +1,19 @@
+fragment TextTagFields on TextTag {
+  name
+  action {
+    name
+    type
+    args
+    data
+  }
+}
+
+fragment RiskTagFields on RiskTag {
+  level
+}
+
+fragment QuickSearchTagFields on QuickSearchTag {
+  icon
+  nameType
+  matchedName
+}

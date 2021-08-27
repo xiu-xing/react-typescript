@@ -1,0 +1,13 @@
+query BusinessCardDetail {
+  bussinessCardDetail {
+    id
+    userId
+    teamId
+    joinStatus
+    success
+    expireAt
+    msg
+    email
+    phone
+  }
+}

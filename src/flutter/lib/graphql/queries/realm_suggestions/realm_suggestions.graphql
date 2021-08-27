@@ -1,0 +1,48 @@
+query RealmSuggestions(
+  $first: MaybeInt32
+  $last: MaybeInt32
+  $after: MaybeString
+  $before: MaybeString
+  $suggestionId: String!
+  $query: String!
+) {
+  appRealmSuggestions(
+    query: $query
+    suggestionId: $suggestionId
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+  ) {
+    totalCount
+    nodes {
+      id
+      primaryName
+      description
+      logo
+      #      entityType
+    }
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    permissions {
+      __typename
+      ... on LockPermission {
+        locked
+      }
+      ... on PaginationPermission {
+        lockNextPage
+        lockPreviousPage
+        rowLimit
+      }
+      ... on FrequencyPermission {
+        remaining
+        used
+        total
+      }
+    }
+  }
+}

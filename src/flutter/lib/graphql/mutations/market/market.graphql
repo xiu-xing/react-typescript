@@ -1,0 +1,19 @@
+mutation CreateOrder($input: CreateOrderRequest!) {
+  createOrder(input: $input) {
+    orderID
+  }
+}
+
+mutation PayOrder($input: PayOrderRequest!) {
+  payOrder(input: $input) {
+    payload
+  }
+}
+
+mutation CancelOrder($input: CancelOrderRequest!) {
+  cancelOrder(input: $input)
+}
+
+mutation ApplePay($input: ApplePayRequest) {
+  applePay(input: $input)
+}

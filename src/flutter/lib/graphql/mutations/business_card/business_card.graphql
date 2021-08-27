@@ -1,0 +1,18 @@
+mutation CreateBusinessCardApprovalTicket($businessCardUrl: String!) {
+  createBussinessCardApprovalTicket(bussinessCardUrl: $businessCardUrl)
+}
+
+mutation CreateVerificationCode(
+  $contactInfo: String!
+  $contactType: ContactType!
+) {
+  createVerificationCode(contactInfo: $contactInfo, contactType: $contactType)
+}
+
+mutation VerifyCodeAndApproveJoinRequest($input: VerifyCodeInput!) {
+  verifyCodeAndApproveJoinRequest(input: $input)
+}
+
+mutation CreateVerificationCodeByJoinRequest($contactType: ContactType!) {
+  createVerificationCodeByJoinRequest(contactType: $contactType)
+}

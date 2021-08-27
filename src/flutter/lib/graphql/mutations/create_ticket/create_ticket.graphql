@@ -1,0 +1,4 @@
+mutation CreateTicket($payload: MaybeString, $type: String!) {
+  createTicket(payload: $payload, type:$type)
+  
+}

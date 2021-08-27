@@ -1,0 +1,64 @@
+# import '../page_info/page_info.graphql'
+# import '../tags/tags_fragment.graphql'
+# import '../entity/entity_fragment.graphql'
+# import '../permission/permission.graphql'
+
+fragment QuickSearchEntityNodeFields on QuickSearchEntityNode {
+  action {
+    data
+    args
+    name
+    type
+  }
+  description
+  highlightTexts
+  logoURI
+  nodeId
+  searchType
+  subtitle
+  title
+  tags {
+    __typename
+    ... on QuickSearchTag {
+      ...QuickSearchTagFields
+    }
+    ... on TextTag {
+      ...TextTagFields
+    }
+    ... on RiskTag {
+      ...RiskTagFields
+    }
+  }
+}
+
+fragment QuickSearchInfoFlowNodeFields on QuickSearchInfoFlowNode {
+  action {
+    args
+    name
+    type
+    data
+  }
+  imageURI
+  publishTime
+  description
+  highlightTexts
+  nodeId
+  searchType
+  subtitle
+  title
+  tags {
+    __typename
+    ... on QuickSearchTag {
+      ...QuickSearchTagFields
+    }
+    ... on TextTag {
+      ...TextTagFields
+    }
+    ... on RiskTag {
+      ...RiskTagFields
+    }
+  }
+  relatedEntity {
+    ...EntityFields
+  }
+}

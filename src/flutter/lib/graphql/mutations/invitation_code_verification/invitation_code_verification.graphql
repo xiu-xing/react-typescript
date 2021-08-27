@@ -1,0 +1,7 @@
+mutation InvitationCodeVerify($code: String!) {
+  invitationCodeVerification(code: $code) {
+    accessTokenString
+    userID
+  }
+}
+

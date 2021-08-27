@@ -1,0 +1,16 @@
+fragment UserProfileFields on UserProfile {
+  fields {
+    name
+    isRequired
+    title
+    options {
+      name
+      value
+    }
+    selectedOptions {
+      name
+      value
+    }
+    isMultiple
+  }
+}

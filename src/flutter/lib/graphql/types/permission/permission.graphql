@@ -1,0 +1,15 @@
+fragment FrequencyPermissionFields on FrequencyPermission {
+  used
+  total
+  remaining
+}
+
+fragment PaginationPermissionFields on PaginationPermission {
+  rowLimit
+  lockNextPage
+  lockPreviousPage
+}
+
+fragment LockPermissionFields on LockPermission {
+  locked
+}

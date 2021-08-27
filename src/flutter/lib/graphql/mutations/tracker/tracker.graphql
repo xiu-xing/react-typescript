@@ -1,0 +1,7 @@
+mutation TrackEntity($trackerTheme: TrackerTheme!, $entities: [EntityInput]!) {
+  appTrackEntity(trackerTheme: $trackerTheme, entities: $entities)
+}
+
+mutation UnTrackEntityByEntityID($entity: EntityInput!) {
+  appUnTrackEntityByEntityID(entity: $entity)
+}

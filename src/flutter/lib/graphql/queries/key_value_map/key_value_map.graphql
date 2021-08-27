@@ -1,0 +1,23 @@
+# import '../../types/permission/permission.graphql'
+
+query KeyValueMap(
+  $funcID: String!
+  $requestBody: MaybeString
+  $platform: NextPlatform
+) {
+  keyValueMap(funcID: $funcID, requestBody: $requestBody, platform: $platform){
+    data
+    permissions{
+      __typename
+      ... on LockPermission {
+        ...LockPermissionFields
+      }
+      ... on FrequencyPermission {
+        ...FrequencyPermissionFields
+      }
+      ... on PaginationPermission {
+        ...PaginationPermissionFields
+      }
+    }
+  }
+}

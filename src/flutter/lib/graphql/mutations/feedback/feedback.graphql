@@ -1,0 +1,11 @@
+mutation GiveFeedback(
+    $problemDescription: String!
+    $phoneNumber: String
+    $images: [String!]
+) {
+    giveFeedback(
+        problemDescription: $problemDescription
+        phoneNumber: $phoneNumber
+        images: $images
+    )
+}

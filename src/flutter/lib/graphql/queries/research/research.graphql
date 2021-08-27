@@ -1,0 +1,191 @@
+# import '../../types/page_info/page_info.graphql'
+# import '../../types/permission/permission.graphql'
+
+query ArticleDetail($id: String!, $articleModuleID: String!) {
+  appArticleDetail(id: $id, articleModuleID: $articleModuleID) {
+    data
+  }
+}
+
+query ArticleUri(
+  $id: String!
+  $articleType: ArticleType!
+  $articleModuleID: String!
+  $fetchType: FetchType!
+) {
+  appArticleUri(
+    id: $id
+    articleType: $articleType
+    articleModuleID: $articleModuleID
+    fetchType: $fetchType
+  ) {
+    resourceURI
+    numOfUsedRead
+    numOfUnusedRead
+    numOfUsedDownload
+    numOfUnusedDownload
+    permissions {
+      ... on LockPermission {
+        ...LockPermissionFields
+      }
+      ... on FrequencyPermission {
+        ...FrequencyPermissionFields
+      }
+      ... on PaginationPermission {
+        ...PaginationPermissionFields
+      }
+    }
+  }
+}
+
+query ArticleList(
+  $articleListID: String!
+  $first: MaybeInt32
+  $after: MaybeString
+  $last: MaybeInt32
+  $before: MaybeString
+  $filters: FilterInputs
+  $articleModuleID: String!
+) {
+  appArticleList(
+    articleListID: $articleListID
+    first: $first
+    after: $after
+    last: $last
+    before: $before
+    filters: $filters
+    articleModuleID: $articleModuleID
+  ) {
+    totalCount
+    nodes {
+      articleID
+      articleType
+      data
+    }
+    pageInfo {
+      ...PageInfoFields
+    }
+    permissions {
+      ... on LockPermission {
+        ...LockPermissionFields
+      }
+      ... on FrequencyPermission {
+        ...FrequencyPermissionFields
+      }
+      ... on PaginationPermission {
+        ...PaginationPermissionFields
+      }
+    }
+  }
+}
+
+query ArticleTabs($articleModuleID: String!) {
+  appArticleTabs(articleModuleID: $articleModuleID) {
+    ... on ArticleTab {
+      id
+      name
+      modifier {
+        hasUpdatedContent
+        isNew
+      }
+      filters {
+        ... on SelectorFilter {
+          id
+          icon
+          name
+          operator
+          multiple
+          options {
+            key
+            value
+          }
+          defaultValue
+          split
+        }
+        ... on DayFilter {
+          id
+          icon
+          name
+          min
+          max
+          operator
+        }
+        ... on YearFilter {
+          id
+          icon
+          name
+          min
+          max
+          operator
+        }
+        ... on MonthFilter {
+          id
+          icon
+          name
+          min
+          max
+          operator
+        }
+        ... on CheckboxFilter {
+          id
+          name
+          icon
+          options {
+            key
+            value
+          }
+          operator
+        }
+        ... on NestedCheckboxFilter {
+          id
+          icon
+          name
+          operator
+        }
+
+        ... on DateRangeFilter {
+          id
+          icon
+          name
+          min
+          max
+          precise
+          defaultEndDate
+          defaultStartDate
+        }
+
+        ... on DateRangeSelectorFilter {
+          id
+          name
+          options {
+            key
+            value
+          }
+          precise
+          min
+          max
+        }
+
+        ... on SuggestionFilter {
+          id
+          name
+          suggestionID
+          placeholder
+        }
+      }
+      permissions {
+        ... on LockPermission {
+          ...LockPermissionFields
+        }
+        ... on FrequencyPermission {
+          ...FrequencyPermissionFields
+        }
+        ... on PaginationPermission {
+          ...PaginationPermissionFields
+        }
+      }
+      articleListID
+      articleType
+    }
+  }
+}

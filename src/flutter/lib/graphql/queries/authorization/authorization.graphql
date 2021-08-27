@@ -1,0 +1,28 @@
+#import '../../types/user_profile/user_profile.graphql'
+
+query UserInfo {
+  user {
+    userID
+    role
+    userName
+    avatarURL
+    description
+    email
+    phone
+    hasBoundWechat
+  }
+}
+
+query UserProfile {
+  userProfile {
+    ...UserProfileFields
+  }
+}
+
+query UserPremiumSubscriptionBalance {
+  UserPremiumSubscriptionBalance {
+    userID
+    serviceID
+    serviceEndTime
+  }
+}

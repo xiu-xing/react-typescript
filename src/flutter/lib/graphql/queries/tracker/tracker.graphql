@@ -1,0 +1,138 @@
+# import '../../types/tags/tags_fragment.graphql'
+# import '../../types/entity/entity_fragment.graphql'
+# import '../../types/page_info/page_info.graphql'
+# import '../../types/permission/permission.graphql'
+
+query TrackerRecommendations($trackerTheme: TrackerTheme!) {
+  appTrackerRecommendations(trackerTheme: $trackerTheme) {
+    entityID
+    entityType
+    primaryName
+    logoURI
+  }
+}
+
+query TrackedEntityCount($trackerTheme: TrackerTheme!) {
+  appTrackedEntityCount(trackerTheme: $trackerTheme) {
+    count
+  }
+}
+
+query AppTrackerTimeline(
+  $timelineID: String!
+  $first: MaybeInt32
+  $after: MaybeString
+  $last: MaybeInt32
+  $before: MaybeString
+  $trackerTheme: TrackerTheme!
+  $filters: FilterInputs
+) {
+  appTrackerTimeline(
+    timelineID: $timelineID
+    first: $first
+    after: $after
+    last: $last
+    before: $before
+    trackerTheme: $trackerTheme
+    filters: $filters
+  ) {
+    totalCount
+    nodes {
+      ...AppTimelineRowNodeFields
+    }
+    pageInfo {
+      ...PageInfoFields
+    }
+    permissions {
+      __typename
+      ... on LockPermission {
+        ...LockPermissionFields
+      }
+      ... on PaginationPermission {
+        ...PaginationPermissionFields
+      }
+      ... on FrequencyPermission {
+        ...FrequencyPermissionFields
+      }
+    }
+    isNeedFolded
+  }
+}
+
+query AppTrackerTabs($trackerTheme: TrackerTheme!) {
+  appTrackerTabs(trackerTheme: $trackerTheme) {
+    __typename
+    ... on TimelineTab {
+      id
+      timelineID
+      timelineType
+      name
+      modifier {
+        hasUpdatedContent
+        isNew
+      }
+      permissions {
+        __typename
+        ... on LockPermission {
+          ...LockPermissionFields
+        }
+        ... on PaginationPermission {
+          ...PaginationPermissionFields
+        }
+        ... on FrequencyPermission {
+          ...FrequencyPermissionFields
+        }
+      }
+    }
+  }
+}
+
+query TrackTags($trackerTheme: TrackerTheme!) {
+  appTrackerTags(trackerTheme: $trackerTheme) {
+    id
+    name
+  }
+}
+
+fragment AppTimelineRowNodeFields on AppTimelineRowNode {
+  time
+  data
+  entity {
+    ...EntityFields
+  }
+  tags {
+    __typename
+    ... on QuickSearchTag {
+      ...QuickSearchTagFields
+    }
+    ... on TextTag {
+      ...TextTagFields
+    }
+    ... on RiskTag {
+      ...RiskTagFields
+    }
+  }
+}
+
+query TrackedEntities(
+  $trackerTheme: TrackerTheme!
+  $first: MaybeInt32
+  $after: MaybeString
+) {
+  trackedEntities(trackerTheme: $trackerTheme, first: $first, after: $after) {
+    totalCount
+    nodes {
+      ...EntityFields
+    }
+    pageInfo {
+      ...PageInfoFields
+    }
+  }
+}
+
+query TrackableTheme($entityID: String!, $entityType: EntityType!) {
+  appTrackableTheme(entityID: $entityID, entityType: $entityType) {
+    trackerTheme
+    isTracked
+  }
+}

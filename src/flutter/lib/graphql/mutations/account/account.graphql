@@ -1,0 +1,89 @@
+#import '../../types/user_profile/user_profile.graphql'
+
+mutation LoginByPassword($account: String!, $password: String!) {
+  loginByPassword(account: $account, password: $password) {
+    accessTokenString
+    userID
+  }
+}
+
+mutation LoginWithApple(
+  $userID: String!
+  $identityToken: String!
+  $name: String
+) {
+  loginWithApple(userID: $userID, identityToken: $identityToken, name: $name) {
+    accessTokenString
+    userID
+  }
+}
+
+mutation LoginByWeChat($code: String!, $platform: NextPlatform!) {
+  loginByWeChat(code: $code, platform: $platform) {
+    accessTokenString
+    userID
+  }
+}
+
+mutation UpdateAccessToken {
+  updateAccessToken
+}
+
+mutation VerifyCode($input: VerifyCodeInput!) {
+  verifyCode(input: $input)
+}
+
+mutation CreateVerificationCodeForBindingContact(
+  $contactInfo: String!
+  $contactType: ContactType!
+) {
+  createVerificationCodeForBindingContact(
+    contactInfo: $contactInfo
+    contactType: $contactType
+  )
+}
+
+mutation BindContact(
+  $contactInfo: String!
+  $contactType: ContactType!
+  $operationToken: String!
+) {
+  bindContact(
+    contactInfo: $contactInfo
+    contactType: $contactType
+    operationToken: $operationToken
+  ) {
+    userID
+    role
+    userName
+    avatarURL
+    description
+    email
+    phone
+  }
+}
+
+mutation LoginByOperationToken(
+  $contactInfo: String!
+  $contactType: ContactType!
+  $operationToken: String!
+) {
+  loginByOperationToken(
+    contactInfo: $contactInfo
+    contactType: $contactType
+    operationToken: $operationToken
+  ) {
+    userID
+    accessTokenString
+  }
+}
+
+mutation UpdateUserProfile($input: UpdateUserProfileInput) {
+  updateUserProfile(input: $input) {
+    ...UserProfileFields
+  }
+}
+
+mutation BindWechat($code: String!, $platform: NextPlatform!){
+   bindWechat(code: $code, platform: $platform)
+}

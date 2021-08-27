@@ -1,0 +1,7 @@
+
+fragment EntityFields on Entity {
+  entityId
+  entityType
+  entityName
+  portraitURL
+}

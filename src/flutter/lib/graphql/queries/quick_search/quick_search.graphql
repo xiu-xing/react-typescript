@@ -1,0 +1,146 @@
+# import '../../types/page_info/page_info.graphql'
+# import '../../types/permission/permission.graphql'
+# import '../../types/quick_search/quick_search_fragment.graphql'
+
+query QuickSearchTrending(
+  $first: Int
+  $last: Int
+  $after: String
+  $before: String
+) {
+  quickSearchTrending(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    platform: PLATFORM_MOBILE
+  ) {
+    __typename
+    permissions {
+      __typename
+      ... on LockPermission {
+        ...LockPermissionFields
+      }
+      ... on PaginationPermission {
+        ...PaginationPermissionFields
+      }
+      ... on FrequencyPermission {
+        ...FrequencyPermissionFields
+      }
+    }
+    totalCount
+    nodes {
+      __typename
+      ... on QuickSearchEntityNode {
+        ...QuickSearchEntityNodeFields
+      }
+      ... on QuickSearchInfoFlowNode {
+        ...QuickSearchInfoFlowNodeFields
+      }
+    }
+    pageInfo {
+      ...PageInfoFields
+    }
+  }
+}
+
+query QuickSearchLatestView(
+  $first: Int
+  $last: Int
+  $after: String
+  $before: String
+) {
+  quickSearchLatestView(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    platform: PLATFORM_MOBILE
+  ) {
+    __typename
+    permissions {
+      __typename
+      ... on LockPermission {
+        ...LockPermissionFields
+      }
+      ... on PaginationPermission {
+        ...PaginationPermissionFields
+      }
+      ... on FrequencyPermission {
+        ...FrequencyPermissionFields
+      }
+    }
+    totalCount
+    nodes {
+      __typename
+      ... on QuickSearchEntityNode {
+        ...QuickSearchEntityNodeFields
+      }
+      ... on QuickSearchInfoFlowNode {
+        ...QuickSearchInfoFlowNodeFields
+      }
+    }
+    pageInfo {
+      ...PageInfoFields
+    }
+  }
+}
+
+query QuickSearchTabs {
+  quickSearchTabs {
+    title
+    searchType
+    lockPermission {
+      locked
+    }
+  }
+}
+
+query QuickSearch(
+  $query: String!
+  $searchType: String!
+  $first: Int
+  $last: Int
+  $after: String
+  $before: String
+) {
+  quickSearch(
+    query: $query
+    searchType: $searchType
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    platform: PLATFORM_MOBILE
+  ) {
+    totalCount
+    permissions {
+      __typename
+      ... on LockPermission {
+        ...LockPermissionFields
+      }
+      ... on PaginationPermission {
+        ...PaginationPermissionFields
+      }
+      ... on FrequencyPermission {
+        ...FrequencyPermissionFields
+      }
+    }
+    nodes {
+      __typename
+      ... on QuickSearchEntityNode {
+        ...QuickSearchEntityNodeFields
+      }
+      ... on QuickSearchInfoFlowNode {
+        ...QuickSearchInfoFlowNodeFields
+      }
+    }
+    pageInfo {
+      ...PageInfoFields
+    }
+  }
+}
+
+query IncrementEntityClickThrough($nodeId: String!, $searchType: String!) {
+  incrementEntityClickThrough(nodeId: $nodeId, searchType: $searchType)
+}

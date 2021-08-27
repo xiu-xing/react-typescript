@@ -1,0 +1,16 @@
+query Teams {
+  teams {
+    id
+    name
+    entityId
+    entityType
+    portraitUri
+  }
+}
+
+query IsEmailBindingRequired {
+  isEmailBindingRequired {
+    domain
+    isBindingRequired
+  }
+}

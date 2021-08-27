@@ -1,0 +1,14 @@
+# import '../entity/entity_fragment.graphql'
+fragment NewsFields on News {
+  id
+  title
+  abstract
+  link
+  publishTime
+  source
+  content
+  pictureURL
+  relatedEntity {
+    ...EntityFields
+  }
+}

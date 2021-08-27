@@ -1,0 +1,29 @@
+# import '../../types/news/news_nodes_fragment.graphql'
+
+query NewsList(
+  $first: MaybeInt32
+  $after: MaybeString
+  $keywords: [String!]
+  $entities: [EntityInput]!
+  $startTime: MaybeString
+  $endTime: MaybeString
+) {
+  newsList(
+    first: $first
+    after: $after
+    keywords: $keywords
+    entities: $entities
+    startTime: $startTime
+    endTime: $endTime
+  ) {
+    nodes {
+      ...NewsFields
+    }
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+  }
+}

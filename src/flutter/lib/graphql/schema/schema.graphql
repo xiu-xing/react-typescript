@@ -1,0 +1,2244 @@
+directive @hasLogined on FIELD_DEFINITION
+
+directive @OAuth on FIELD_DEFINITION
+
+type Action {
+  name: String!
+  type: ActionType!
+  args: StringMap
+  data: MaybeString
+}
+
+enum ActionType {
+  EXTERNAL_LINK
+  POP_UP
+  PROFILE
+  SUB_PROFILE
+  FULL_SCREEN_CHART
+  FULL_SCREEN_GRAPH
+  RISK_DETAIL
+}
+
+input AddCommodityRequest {
+  name: String
+  amount: Float32
+  day: Int32
+  serviceID: String
+}
+
+enum Alignment {
+  ALIGNMENT_LEFT
+  ALIGNMENT_RIGHT
+  ALIGNMENT_MIDDLE
+}
+
+scalar Any
+
+input ApplePayRequest {
+  payload: String
+  orderID: String
+}
+
+type AppOrderColumn {
+  id: String!
+  name: String!
+}
+
+type AppProfile {
+  logoURI: MaybeString
+  primaryName: String
+  legalName: String
+  sections: [Section]
+  permissions: [Permission!]
+  tags: [Tag]
+}
+
+type AppRealm {
+  id: String!
+  name: String!
+  orderColumns: [AppOrderColumn]
+  permissions: [Permission!]
+}
+
+type AppRealmSearchResult {
+  totalCount: Int32
+  edges: [AppRealmSearchResultEdge]
+  nodes: [AppRealmSearchResultNode]
+  pageInfo: PageInfo!
+  permissions: [Permission!]
+}
+
+type AppRealmSearchResultEdge {
+  node: AppRealmSearchResultNode
+  cursor: String
+}
+
+type AppRealmSearchResultNode {
+  entityID: MaybeString
+  entityType: EntityType
+  logoURI: MaybeString
+  primaryName: String
+  label: MaybeString
+  description: MaybeString
+  tags: [Tag]
+}
+
+type AppTimelineConnection {
+  totalCount: Int!
+  edges: [AppTimelineRowEdge]
+  nodes: [AppTimelineRowNode]
+  pageInfo: PageInfo
+  permissions: [Permission!]
+  isNeedFolded: MaybeBool
+}
+
+type AppTimelineRowEdge {
+  node: AppTimelineRowNode
+  cursor: String!
+}
+
+type AppTimelineRowNode {
+  time: Int!
+  data: String!
+  tags: [Tag!]
+  entity: Entity
+}
+
+type Article {
+  data: String!
+}
+
+type ArticleListConnection {
+  totalCount: Int32
+  edges: [ArticleListEdge]
+  nodes: [ArticleListNode]
+  pageInfo: PageInfo!
+  permissions: [Permission!]
+}
+
+type ArticleListEdge {
+  node: ArticleListNode
+  cursor: String
+}
+
+type ArticleListNode {
+  articleID: MaybeString
+  articleType: ArticleType
+  data: String
+}
+
+type ArticleResource {
+  resourceURI: MaybeString
+  permissions: [Permission!]
+  numOfUsedRead: MaybeInt32
+  numOfUnusedRead: MaybeInt32
+  numOfUsedDownload: MaybeInt32
+  numOfUnusedDownload: MaybeInt32
+}
+
+type ArticleTab {
+  id: String!
+  name: String!
+  modifier: Modifier
+  filters: [Filter]
+  permissions: [Permission!]
+  articleListID: String!
+  articleType: ArticleType!
+}
+
+enum ArticleType {
+  ARTICLE_TYPE_UNDEFINED
+  ARTICLE_TYPE_RESEARCH_REPORT
+  ARTICLE_TYPE_RESEARCH_CHART
+  ARTICLE_TYPE_NEWS
+}
+
+type AuthPayload {
+  accessTokenString: String
+  userID: String
+}
+
+union Block = TextAreaBlock | KeyValueBlock | TagBlock | CellBlock | LegoBlock | LayoutKVBlock
+
+type BlockSection {
+  id: String!
+  blockID: String!
+  name: String!
+  abbreviation: MaybeString
+  filters: [Filter!]
+  modifier: Modifier
+  footnotes: [Footnote!]
+  permissions: [Permission!]
+  tags: [Tag]
+  unfoldBlockID: MaybeString
+}
+
+type BusinessCardInformation {
+  id: String!
+  userId: String!
+  teamId: String!
+  joinStatus: JoinStatus!
+  success: Boolean
+  expireAt: Int32
+  msg: String
+  email: String
+  phone: String
+}
+
+input CancelOrderRequest {
+  orderID: String
+}
+
+type Cell {
+  name: String!
+  value: Float32!
+  unit: String
+  subValue: String
+  color: MaybeString
+  precision: Int32
+  action: Action
+  icon: MaybeString
+}
+
+type CellBlock {
+  name: MaybeString
+  width: Float32!
+  cells: [Cell!]!
+}
+
+type ChannelData {
+  entityID: String!
+  entityType: EntityType!
+  entityName: String!
+  portraitURL: MaybeString
+  jsonValue: MaybeString
+}
+
+type ChannelDataConnection {
+  totalCount: Int32!
+  nodes: [ChannelData!]
+  edges: [ChannelDataEdge!]
+  pageInfo: PageInfo!
+}
+
+type ChannelDataEdge {
+  node: ChannelData!
+  cursor: String!
+}
+
+type Chart {
+  permissions: [Permission!]
+  data: String
+  filters: [Filter]
+  name: MaybeString
+}
+
+type ChartSection {
+  id: String!
+  name: String!
+  abbreviation: MaybeString
+  filters: [Filter!]
+  modifier: Modifier
+  footnotes: [Footnote!]
+  permissions: [Permission!]
+  chartIDs: [String!]!
+  count: MaybeInt32
+  fullWidth: MaybeBool
+}
+
+type CheckboxFilter {
+  id: String
+  icon: MaybeString
+  name: MaybeString
+  options: [FilterOption]
+  operator: MaybeString
+}
+
+input CheckboxFilterInput {
+  filterID: String
+  values: [String!]!
+  name: MaybeString
+  operator: MaybeString
+  displayValue: MaybeString
+}
+
+type CollectionEntitiesCountWithTags {
+  totalCount: Int32!
+  jsonValue: String!
+}
+
+type CollectionGroup {
+  groupId: String!
+  groupName: String!
+}
+
+type CollectionGroupWithItemCount {
+  groupID: String!
+  groupName: String!
+  itemCount: Int32!
+}
+
+type CollectionGroupWithItemsCount {
+  groupId: String!
+  groupName: String!
+  itemsCount: Int32!
+}
+
+type CollectionTag {
+  tagId: String!
+  tagName: String!
+}
+
+type CollectionTagConnection {
+  totalCount: Int32!
+  nodes: [CollectionTag!]!
+  edges: [CollectionTagEdge!]!
+  pageInfo: PageInfo!
+}
+
+type CollectionTagEdge {
+  node: CollectionTag!
+  cursor: String!
+}
+
+input CommitMatchedResultsInput {
+  importID: String!
+  taskID: String!
+  processRelevantGroups: Boolean!
+}
+
+type Commodity {
+  id: String
+  name: String
+  amount: Float32
+  day: Int32
+  serviceID: String
+}
+
+enum CommunicationType {
+  Broadcast
+  Unicast
+  Multicast
+}
+
+type ConditionOperator {
+  operator: NextOperator!
+  name: MaybeString
+}
+
+input ConditionOperatorInput {
+  operator: NextOperator!
+  name: MaybeString
+}
+
+enum ConditionType {
+  FIELD
+  SEARCH_FIELD
+  RANGE
+  DATE_RANGE
+  CHECKBOX
+  NESTED_CHECKBOX
+}
+
+enum ContactType {
+  PHONE
+  EMAIL
+}
+
+input CreateOrderRequest {
+  commodityID: String!
+}
+
+type CreateOrderResponse {
+  orderID: String!
+}
+
+input CreateSystemMessageInput {
+  title: String
+  content: String
+  image: String
+  url: String
+  messageType: MessageType
+}
+
+input CreateTemplateInput {
+  name: String!
+  realmID: String!
+  conditions: [NextSearchConditionInput]!
+}
+
+input CreateUpdateMessageInput {
+  title: String
+  content: String
+  image: String
+  url: String
+}
+
+type DailyChannelData {
+  entityID: String!
+  entityType: EntityType!
+  entityName: String!
+  date: String!
+  portraitURL: MaybeString
+  jsonValue: MaybeString
+}
+
+type DailyChannelDataConnection {
+  totalCount: Int32!
+  nodes: [DailyChannelData!]
+  edges: [DailyChannelDataEdge!]
+  pageInfo: PageInfo!
+}
+
+type DailyChannelDataEdge {
+  node: DailyChannelData!
+  cursor: String!
+}
+
+input DateFilterInput {
+  filterID: String
+  timestamp: Int32
+  preset: MaybeString
+  name: MaybeString
+  operator: MaybeString
+  displayValue: MaybeString
+}
+
+enum DatePrecise {
+  DATE_PRECISE_UNSPECIFIE
+  YEAR
+  MONTH
+  DAY
+  HOUR
+}
+
+type DateRangeFilter {
+  id: String
+  icon: MaybeString
+  name: MaybeString
+  min: MaybeInt32
+  max: MaybeInt32
+  defaultStartDate: Int!
+  defaultEndDate: Int!
+  precise: DatePrecise
+}
+
+input DateRangeFilterInput {
+  start: Int32
+  end: Int32
+  id: String
+  name: MaybeString
+  displayValue: MaybeString
+}
+
+type DateRangeSelectorFilter {
+  id: String
+  name: MaybeString
+  options: [FilterOption]
+  precise: DatePrecise
+  min: MaybeInt32
+  max: MaybeInt32
+}
+
+input DateRangeSelectorFilterInput {
+  filterID: String!
+  startTimestamp: Int32
+  endTimestamp: Int32
+  name: MaybeString
+  displayValue: MaybeString
+  selectedValue: MaybeString
+}
+
+type DayFilter {
+  id: String
+  icon: MaybeString
+  min: MaybeInt32
+  max: MaybeInt32
+  name: MaybeString
+  operator: MaybeString
+}
+
+input DeleteFromTeamGroupInput {
+  groupCodes: [String!]!
+  entities: [OperationEntity!]!
+}
+
+type DeleteUserExportRecordResponse {
+  isDeleted: Boolean!
+}
+
+type EntitiesCountFromRelevantGroups {
+  relevantGroupCounts: [RelevantGroupCount]
+}
+
+type Entity {
+  entityId: MaybeString
+  entityType: EntityType!
+  entityName: String!
+  portraitURL: MaybeString
+}
+
+type EntityConnection {
+  totalCount: Int32
+  edges: [EntityEdge]
+  nodes: [Entity]
+  pageInfo: PageInfo!
+}
+
+type EntityEdge {
+  node: Entity
+  cursor: String
+}
+
+input EntityFilterInput {
+  entityID: String
+  entityType: EntityType
+  name: MaybeString
+  displayValue: MaybeString
+}
+
+input EntityInput {
+  entityId: String!
+  entityType: EntityType!
+}
+
+input EntityItemInput {
+  entityId: String!
+  entityType: EntityType!
+}
+
+enum EntityType {
+  ENTITY_TYPE_UNSPECIFIED
+  PERSON
+  ORGANIZATION
+  EVENT
+  VERTICAL
+  DEAL
+}
+
+type ExportRecord {
+  id: String
+  name: String
+  url: String
+  createdTime: String
+  status: Status
+  rowNum: String
+  conditions: [NextSearchCondition]
+}
+
+type ExportRecordEdge {
+  node: ExportRecord
+  cursor: String
+}
+
+type ExportResponse {
+  id: String!
+}
+
+enum FetchType {
+  FETCH_TYPE_UNDEFINED
+  FETCH_TYPE_READ
+  FETCH_TYPE_DOWNLOAD
+}
+
+type Field {
+  name: String
+  value: String
+}
+
+enum FileType {
+  Avatar
+  BusinessCard
+}
+
+union Filter = SelectorFilter | YearFilter | MonthFilter | DayFilter | CheckboxFilter | NestedCheckboxFilter | DateRangeFilter | DateRangeSelectorFilter | SuggestionFilter
+
+input FilterInput {
+  filterID: String!
+  operator: SQLOperator!
+  values: [String!]!
+}
+
+input FilterInputs {
+  selectorFilterInputs: [SelectorFilterInput]
+  entityFilterInputs: [EntityFilterInput]
+  dateFilterInputs: [DateFilterInput]
+  keywordFilterInput: KeywordFilterInput
+  checkboxFilterInputs: [CheckboxFilterInput]
+  multiSelectorFilterInputs: [MultiSelectorFilterInput]
+  dateRangeFilterInputs: [DateRangeFilterInput]
+  dateRangeSelectorFilterInput: [DateRangeSelectorFilterInput]
+  suggestionFilterInput: [SuggestionFilterInput]
+}
+
+type FilterOption {
+  key: String!
+  value: String!
+}
+
+scalar Float32
+
+type Footnote {
+  id: String!
+  key: String!
+  description: String!
+}
+
+enum Format {
+  FORMAT_TEXT
+  FORMAT_INT
+  FORMAT_FLOAT
+}
+
+type FrequencyPermission {
+  remaining: Int!
+  used: Int!
+  total: Int!
+}
+
+type Func {
+  funcID: String!
+  funcType: FuncType!
+  funcName: MaybeString
+}
+
+enum FuncType {
+  FUNC_TYPE_UNDEFINED
+  FUNC_TYPE_TABLE
+  FUNC_TYPE_CHART
+  FUNC_TYPE_DATA_BLOCK
+  FUNC_TYPE_KEY_VALUE_MAP
+  FUNC_TYPE_SHEET_DATA
+  FUNC_TYPE_INFO_FLOW
+  FUNC_TYPE_GRAPH
+  FUNC_TYPE_PROGRESS_BAR
+  FUNC_TYPE_STATEMENT_SHEET
+  FUNC_TYPE_SUB_PROFILE
+  FUNC_TYPE_LIST
+}
+
+type GetDownloadURLResponse {
+  url: String!
+}
+
+type Graph {
+  permissions: [Permission!]
+  data: String
+}
+
+type GraphSection {
+  id: String!
+  name: String!
+  abbreviation: MaybeString
+  filters: [Filter!]
+  modifier: Modifier
+  footnotes: [Footnote!]
+  permissions: [Permission!]
+  graphIDs: [String!]!
+  count: MaybeInt32
+  fullWidth: MaybeBool
+}
+
+type GroupOverview {
+  code: String!
+  name: String!
+  count: Int32!
+}
+
+input ImportEntity {
+  entityID: String!
+  entityType: EntityType!
+}
+
+type InfoFlowConnection {
+  edges: [InfoFlowEdge]
+  nodes: [InfoFlowItem]
+  pageInfo: PageInfo!
+  permissions: [Permission!]
+}
+
+type InfoFlowEdge {
+  node: InfoFlowItem
+  cursor: String
+}
+
+type InfoFlowItem {
+  id: String
+  title: String
+  subtitle: String
+  description: String
+  image: MaybeString
+  timestamp: Int
+  tags: [Tag]
+  action: Action
+}
+
+type InfoFlowSection {
+  id: String!
+  name: String!
+  modifier: Modifier
+  filters: [Filter!]
+  permissions: [Permission!]
+  infoFlowID: String!
+  limit: MaybeInt32
+  count: MaybeInt32
+}
+
+type InfoFlowTab {
+  id: String!
+  name: String!
+  modifier: Modifier
+  filters: [Filter]
+  permissions: [Permission!]
+  infoFlowID: String!
+}
+
+scalar Int32
+
+scalar Int64
+
+input InvalidateMatchedResultsInput {
+  importId: String!
+  taskID: String!
+  matchName: [String!]!
+}
+
+type InvitationCode {
+  invitationCode: String!
+}
+
+type InvitationInformation {
+  invitationCode: String
+  invitee: String
+  teamName: String
+  logoUrl: String
+}
+
+type IsEmailBindingRequiredResponse {
+  domain: [String!]
+  isBindingRequired: Boolean!
+}
+
+enum JoinStatus {
+  JoinSubmit
+  JoinEnd
+}
+
+type KeyValueBlock {
+  name: MaybeString
+  width: Float32!
+  isVerticalDirection: MaybeBool
+  fields: [Field]!
+}
+
+type KeyValueMapResponse {
+  data: String
+  permissions: [Permission!]
+}
+
+input KeywordFilterInput {
+  keywords: [String]!
+  name: MaybeString
+  displayValue: MaybeString
+}
+
+type LayoutKVBlock {
+  name: MaybeString
+  fields: [[Field]]
+}
+
+enum LegacyEntityType {
+  PERSON
+  ORGANIZATION
+  DEAL
+  VERTICAL
+}
+
+type LegoBlock {
+  name: MaybeString
+  width: Float32!
+  funcs: [Func!]
+}
+
+type List {
+  name: MaybeString
+  permissions: [Permission!]
+  showLogo: MaybeBool
+  connection: ListConnection
+  foldNode: MaybeBool
+}
+
+type ListConnection {
+  totalCount: Int32
+  edges: [ListEdge]
+  nodes: [ListNode]
+  pageInfo: PageInfo!
+}
+
+type ListEdge {
+  node: ListNode
+  cursor: String
+}
+
+type ListItemEdge {
+  node: String
+  cursor: String
+}
+
+type ListItemsConnection {
+  summary: String
+  totalCount: Int32
+  edges: [ListItemEdge]
+  nodes: [String]
+  pageInfo: PageInfo!
+  filters: [String]
+}
+
+type ListNode {
+  logoURI: MaybeString
+  title: MaybeString
+  trailingTitle: MaybeString
+  blocks: [Block]
+  action: Action
+  tags: [Tag]
+}
+
+type ListSection {
+  id: String!
+  name: String!
+  modifier: Modifier
+  filters: [Filter!]
+  permissions: [Permission!]
+  listIDs: [String!]!
+  count: MaybeInt32
+}
+
+type LockPermission {
+  locked: Boolean!
+}
+
+scalar Map
+
+type MatchedResultConnection {
+  totalCount: Int32!
+  edges: [MatchItemEdge]
+  nodes: [MatchItem]
+  pageInfo: PageInfo!
+}
+
+type MatchEntity {
+  entityID: String
+  entityType: EntityType
+  entityName: String
+  portraitURL: MaybeString
+  info: String
+  description: String
+}
+
+type MatchingTask {
+  taskID: String
+  createdAt: String
+  taskCount: Int32
+  importRowNum: Int32
+  importID: String
+  fileName: String
+  groupCode: String
+  isManual: Boolean
+}
+
+type MatchingTaskConnection {
+  totalCount: Int32!
+  edges: [MatchingTaskEdge]
+  nodes: [MatchingTask]
+  pageInfo: PageInfo!
+}
+
+type MatchingTaskEdge {
+  node: MatchingTask
+  cursor: String!
+}
+
+type MatchItem {
+  matchName: String
+  matchedEntity: MatchEntity
+}
+
+type MatchItemEdge {
+  node: MatchItem
+  cursor: String!
+}
+
+input MatchRecordInput {
+  groupCode: String!
+  processRelevantGroups: Boolean!
+  entity: OperationEntity!
+}
+
+input MatchRecordsFromImportedFileInput {
+  resourceKey: String!
+  groupCode: String!
+}
+
+scalar MaybeBool
+
+scalar MaybeFloat32
+
+scalar MaybeFloat64
+
+scalar MaybeInt32
+
+scalar MaybeInt64
+
+scalar MaybeString
+
+input Message {
+  messageId: String
+  messageType: MessageType
+  comType: CommunicationType
+}
+
+type MessageConnection {
+  totalCount: Int32!
+  nodes: [MessageItem]
+  edges: [MessageEdge]
+  pageInfo: PageInfo!
+}
+
+type MessageEdge {
+  node: MessageItem!
+  cursor: String!
+}
+
+type MessageItem {
+  messageId: String
+  body: String
+  createTime: Int
+  beginAt: Int
+  expireAt: Int
+  readTime: Int
+  messageType: MessageType
+  comType: CommunicationType
+}
+
+type Messages {
+  messages: [MessageItem]!
+}
+
+type MessageStatusConnection {
+  success: Boolean
+}
+
+enum MessageType {
+  Timely
+  Simple
+  Update
+  Optimization
+  Revision
+  Deleted
+}
+
+type Modal {
+  title: String
+  data: String
+}
+
+type ModalData {
+  dataID: String
+  data: String
+}
+
+type Modifier {
+  hasUpdatedContent: Boolean!
+  isNew: Boolean!
+}
+
+type MonthFilter {
+  id: String
+  icon: MaybeString
+  min: MaybeInt32
+  max: MaybeInt32
+  name: MaybeString
+  operator: MaybeString
+}
+
+input MultiSelectorFilterInput {
+  filterID: String
+  filterValues: [String!]!
+  operator: MaybeString
+  name: MaybeString
+  displayValue: MaybeString
+}
+
+type Mutation {
+  healthcheck: String!
+  createTicket(payload: MaybeString, type: String!): Boolean!
+  updateTicket(id: String!, payload: MaybeString, eventName: String!): Boolean!
+  addUserFollowEntitiesToGroup(userFollowEntityIds: [String!]!, groupIds: [String!]!): Boolean!
+  removeUserFollowEntitiesFromGroup(userFollowEntityIds: [String!]!, groupIds: [String!]!): Boolean!
+  upsertUserFollowGroup(groupName: String!, groupID: String): CollectionGroup
+  deleteUserFollowGroups(groupIds: [String!]!): MaybeBool
+  commitMatchedResults(input: CommitMatchedResultsInput!): MaybeBool
+  matchRecordsFromImportedFile(input: MatchRecordsFromImportedFileInput!): MaybeString
+  invalidateMatchedResults(input: InvalidateMatchedResultsInput!): MaybeInt32
+  deleteFromTeamGroup(input: DeleteFromTeamGroupInput!): MaybeBool
+  matchRecord(input: MatchRecordInput!): MaybeBool
+  singleUpload(file: Upload!): String!
+  createOrder(input: CreateOrderRequest!): CreateOrderResponse
+  payOrder(input: PayOrderRequest!): PayOrderResponse
+  cancelOrder(input: CancelOrderRequest): MaybeBool
+  applePay(input: ApplePayRequest): MaybeBool
+  subscribe(entities: [SubscribeEntityInput!]!): Boolean!
+  unsubscribe(entities: [SubscribeEntityInput!]!): Boolean!
+  refreshVerticalKeywordCache: Boolean!
+  delMessages(messageIds: [String!]!): MessageStatusConnection
+  readAllMessage: MessageStatusConnection
+  markAllUpdateMessagesAsRead: MessageStatusConnection
+  ackMessage(messages: [Message!]!): MessageStatusConnection
+  createUpdateMessage(input: [CreateUpdateMessageInput!]!): Boolean
+  markAllSystemMessagesAsRead: MessageStatusConnection
+  createSystemMessage(input: [CreateSystemMessageInput!]!): Boolean
+  createTemplate(input: CreateTemplateInput!): SearchTemplate
+  renameTemplate(input: RenameTemplateInput!): SearchTemplate
+  saveTemplate(input: SaveTemplateInput!): SearchTemplate
+  deleteTemplate(templateId: String!): MaybeBool
+  copyTemplate(sourceTemplateId: String!): SearchTemplate
+  giveFeedback(problemDescription: String!, images: [String!], phoneNumber: String, remark: String): Boolean!
+  submitPurchaserContact(userName: String!, phoneNumber: String!, email: String!): Boolean!
+  appTrackEntity(trackerTheme: TrackerTheme!, entities: [EntityInput]!): MaybeBool!
+  appUnTrackEntityByEntityID(entity: EntityInput!): MaybeBool!
+  trackEntity(trackerTheme: TrackerTheme!, entities: [EntityInput]!): MaybeBool!
+  unTrackEntity(trackingIds: [String!]): MaybeBool!
+  unTrackEntityByEntityID(entity: EntityInput!): MaybeBool!
+  createTrackerTags(tagNames: [String!], trackerTheme: TrackerTheme!): MaybeBool!
+  deleteTrackerTags(tagIds: [String!]): MaybeBool!
+  addTagsToTrackedEntities(trackingIds: [String!], tagIds: [String!], trackerTheme: TrackerTheme, newTags: [TrackerTagWithAddToTrackingFlag]): MaybeBool!
+  removeTagsFromTrackedEntities(trackingIds: [String!], tagIds: [String!]): MaybeBool!
+  vbSaveSearchTemplate(templateName: String!, condition: TemplateSearchConditionInput!): SearchTemplateGeneralResponse
+  vbDeleteSearchTemplate(templateID: String!): SearchTemplateGeneralResponse
+  vbUpdateSearchTemplate(templateID: String!, condition: TemplateSearchConditionInput!): SearchTemplateGeneralResponse
+  vbRenameSearchTemplate(templateID: String!, template_name: String!): SearchTemplateGeneralResponse
+  vbCopySearchTemplate(templateID: String!): SearchTemplateGeneralResponse
+  updateUserInfo(input: UpdateUserInfoInput): UserInformation
+  loginByPassword(account: String!, password: String!): AuthPayload
+  loginByWeChat(code: String!, platform: NextPlatform!): AuthPayload
+  loginWithApple(userID: String!, identityToken: String!, name: String): AuthPayload
+  loginByOperationToken(contactInfo: String!, contactType: ContactType!, operationToken: String!): AuthPayload
+  updateAccessToken: MaybeString
+  createBussinessCardApprovalTicket(bussinessCardUrl: String!): Boolean!
+  delTeamMember(removedUser: [String!]!, teamID: String!): Boolean!
+  invitationCodeVerification(code: String!): AuthPayload!
+  approveInvitation(code: String!, phone: String): AuthPayload!
+  updateUserProfile(input: UpdateUserProfileInput): UserProfile
+  bindContact(contactInfo: String!, contactType: ContactType!, operationToken: String!): UserInformation
+  bindWechat(code: String!, platform: NextPlatform!): MaybeBool
+  createVerificationCode(contactInfo: String!, contactType: ContactType!): MaybeString
+  verifyCodeAndApproveJoinRequest(input: VerifyCodeInput!): MaybeBool
+  verifyCodeAndApproveJoinRequestNG(input: VerifyCodeInput!): AuthPayload
+  verifyCode(input: VerifyCodeInput!): MaybeBool
+  createVerificationCodeByJoinRequest(contactType: ContactType!): MaybeString
+  createVerificationCodeForBindingContact(contactInfo: String!, contactType: ContactType!): MaybeString
+}
+
+type MyOrderItem {
+  orderID: String
+  commodityID: String
+  orderStats: OrderStats
+  typeOrder: TypeOrder
+  amount: Float32
+  createTime: MaybeInt64
+  updateTime: MaybeInt64
+  day: MaybeInt64
+  commodityName: String
+}
+
+type MyOrderResponse {
+  myOrder: [MyOrderItem!]!
+  count: MaybeInt32!
+  pageInfo: PageInfo!
+}
+
+type NestedCheckboxFilter {
+  id: String
+  icon: MaybeString
+  name: MaybeString
+  operator: MaybeString
+}
+
+type News {
+  id: String
+  title: String
+  abstract: String
+  link: String
+  pictureURL: String
+  publishTime: String
+  source: String
+  content: String
+  relatedEntity: [Entity]!
+  tag: [String]
+}
+
+type NewsConnection {
+  totalCount: Int32
+  edges: [NewsEdge]
+  nodes: [News]
+  pageInfo: PageInfo!
+}
+
+type NewsEdge {
+  node: News
+  cursor: String
+}
+
+enum NextOperator {
+  INCLUDES_ANY
+  INCLUDES_ALL
+  BEFORE
+  AFTER
+  BETWEEN
+  BETWEEN_WITH_CLOSED_INTERVAL
+}
+
+enum NextPlatform {
+  PLATFORM_UNKNOWN
+  PLATFORM_WEB
+  PLATFORM_MOBILE
+}
+
+type NextSearchCondition {
+  id: String!
+  operator: ConditionOperator!
+  options: [SearchConditionOption]!
+  name: String!
+  type: ConditionType!
+}
+
+input NextSearchConditionInput {
+  id: String!
+  operator: ConditionOperatorInput!
+  options: [SearchConditionOptionInput]!
+  name: String!
+  type: ConditionType!
+}
+
+input OperationEntity {
+  entityID: String!
+  entityType: EntityType!
+}
+
+input OrderColumn {
+  columnId: String!
+  isDesc: Boolean
+}
+
+enum OrderStats {
+  SUCCESS
+  REFUND
+  NOTPAY
+  CLOSED
+  REVOKED
+  USERPAYING
+  PAYERROR
+  ACCEPT
+}
+
+enum OSType {
+  IOS
+  Android
+}
+
+type OverviewModal {
+  logoURI: MaybeString
+  primaryName: String!
+  blocks: [Block!]!
+}
+
+type PageInfo {
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+  startCursor: MaybeString
+  endCursor: MaybeString
+}
+
+type PaginationPermission {
+  lockNextPage: Boolean!
+  lockPreviousPage: Boolean!
+  rowLimit: Int!
+}
+
+input PayOrderRequest {
+  orderID: String!
+  typeOrder: TypeOrder!
+}
+
+type PayOrderResponse {
+  payload: String!
+}
+
+union Permission = PaginationPermission | LockPermission | FrequencyPermission
+
+enum Platform {
+  PLATFORM_UNKNOWN
+  PLATFORM_WEB
+  PLATFORM_MOBILE
+}
+
+type PresetTemplate {
+  title: String!
+  statistics: String!
+  icons: [String]
+  conditions: [NextSearchCondition]
+}
+
+type PresetTemplateConnection {
+  totalCount: Int!
+  edges: [PresetTemplateEdge]
+  nodes: [PresetTemplate]
+  pageInfo: PageInfo!
+}
+
+type PresetTemplateEdge {
+  node: PresetTemplate
+  cursor: String!
+}
+
+union Profile = WebProfile | AppProfile
+
+type ProgressBar {
+  progressNodes: [ProgressNode!]
+  permissions: [Permission!]
+}
+
+type ProgressBarSection {
+  id: String!
+  name: String!
+  modifier: Modifier
+  filters: [Filter!]
+  progressBarIDs: [String!]!
+  footnotes: [Footnote!]
+  abbreviation: MaybeString
+  permissions: [Permission!]
+}
+
+type ProgressNode {
+  title: String!
+  subtitle: MaybeString
+  date: MaybeString
+  status: ProgressStatus!
+}
+
+enum ProgressStatus {
+  PROGRESS_STATUS_ACTIVE
+  PROGRESS_STATUS_CURRENT
+  PROGRESS_STATUS_INACTIVE
+  PROGRESS_STATUS_FAIL
+}
+
+type Quarter {
+  year: Int32!
+  quarter: QuarterSequence!
+}
+
+type QuarterRange {
+  min: Quarter!
+  max: Quarter!
+}
+
+enum QuarterSequence {
+  ANNUAL
+  ONE
+  TWO
+  THREE
+  FOUR
+}
+
+type Query {
+  healthcheck: String!
+  now: Timestamp!
+  articleTabs(articleModuleID: String!): [Tab]!
+  articleUri(id: String!, articleType: ArticleType!, articleModuleID: String!, fetchType: FetchType!): ArticleResource
+  articleList(articleListID: String!, first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, filters: FilterInputs, articleModuleID: String!): ArticleListConnection
+  articleDetail(id: String!, articleModuleID: String!): Article
+  appArticleTabs(articleModuleID: String!): [Tab]!
+  appArticleUri(id: String!, articleType: ArticleType!, articleModuleID: String!, fetchType: FetchType!): ArticleResource
+  appArticleList(articleListID: String!, first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, filters: FilterInputs, articleModuleID: String!): ArticleListConnection
+  appArticleDetail(id: String!, articleModuleID: String!): Article
+  ticket(ticketId: String!): Ticket!
+  searchEntityTags(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString, keyword: String!): CollectionTagConnection
+  userFollowEntities(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString, tagIds: [String!], groupIds: [String!]): UserFollowEntityConnection
+  userFollowEntitiesCountWithTags(tagIds: [String!]!): CollectionEntitiesCountWithTags!
+  userFollowGroups: [CollectionGroupWithItemCount!]!
+  getFrequentGroups: [CollectionGroupWithItemCount!]!
+  isEntityFollow(input: EntityItemInput!): Boolean!
+  teamChannelData(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString, dataID: String!, teamGroupCodes: [String!]!, startDate: MaybeString, endDate: MaybeString): ChannelDataConnection
+  teamDailyChannelData(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString, dataID: String!, teamGroupCodes: [String!]!, startDate: MaybeString, endDate: MaybeString): DailyChannelDataConnection
+  userFollowedChannelData(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString, dataID: String!, groupID: MaybeString, tagID: MaybeString, startDate: MaybeString, endDate: MaybeString): ChannelDataConnection
+  userFollowedDailyChannelData(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString, dataID: String!, groupID: MaybeString, tagID: MaybeString, startDate: MaybeString, endDate: MaybeString): DailyChannelDataConnection
+  channelStatistics(channelID: String!): MaybeString
+  entityChannelStatistics(channelID: String!, entity: EntityInput): MaybeString
+  userFollowedRecommendation(tagID: TagID!): UserFollowedRecommendation
+  entity(entityID: String!, entityType: EntityType!): Entity!
+  teamGroupOverview: [GroupOverview]!
+  teamEntities(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString, codes: [String!]!): TeamEntitiesConnection
+  getEntitiesCountFromRelevantGroupsByTask(taskID: String!, importID: String!): EntitiesCountFromRelevantGroups!
+  getEntitiesCountFromRelevantGroups(groupCode: String!, entity: ImportEntity!): EntitiesCountFromRelevantGroups!
+  getMatchedResults(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString, taskId: String!): MatchedResultConnection
+  getTemplateFileResourceKey: MaybeString
+  getActiveMatchingTasks(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString, taskStatus: TaskStatus!): MatchingTaskConnection
+  getTimelyMessages: MaybeInt32
+  userExportHistory(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString): UserExportHistoryConnection
+  exportRealmSheetData(realmID: String!, sheetID: String!, first: Int, after: String, last: Int, before: String, conditions: [NextSearchConditionInput]!, columnIDs: [String!]!, templateID: String, orderColumns: [OrderColumn]): ExportResponse
+  getDownloadURL(id: String!): GetDownloadURLResponse
+  exportTableData(first: Int, last: Int, after: String, before: String, id: String!, entityID: String!, entityType: EntityType, filter: FilterInputs): ExportResponse
+  exportStatementSheet(statementSheetID: String!, entityID: String!, entityType: EntityType!, filters: FilterInputs, platform: NextPlatform): ExportResponse
+  exportRealmSheetDataByEntities(realmID: String!, sheetID: String!, columnIDs: [String!]!, entities: [EntityInput]!): ExportResponse
+  remainingExport: RemainingExport
+  commodity(osType: OSType!): [Commodity]!
+  commodityByID(id: String!): Commodity
+  checkPayment(orderID: String!): MaybeBool
+  userOrders(offset: MaybeInt32!, limit: MaybeInt32!): MyOrderResponse
+  orderByID(orderID: String!): MyOrderItem
+  checkSubscriptions(entities: [SubscribeEntityInput!]!): [SubscriptionEntity]!
+  subscriptions: [SubscriptionEntity]!
+  newsList(first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, keywords: [String!], entities: [EntityInput], startTime: MaybeString, endTime: MaybeString, tags: [String!], queryType: QueryType): NewsConnection
+  timelyMessages: TimelyMessageConnection
+  messages(first: Int, last: Int, after: String, before: String): MessageConnection
+  messagesById(messages: [Message!]!): Messages
+  globalMessage: MessageItem
+  updateMessages(first: Int, last: Int, after: String, before: String): MessageConnection
+  unreadUpdatesMessage: TimelyMessageConnection
+  systemMessages(first: Int, last: Int, after: String, before: String): MessageConnection
+  unreadSystemMessagesCount: TimelyMessageConnection
+  mapData(funcID: String!, requestBody: MaybeString, platform: Platform): MaybeString
+  listDetail(first: Int, after: String, last: Int, before: String, sectionID: String!, entityID: String!, entityType: EntityType!, filter: [FilterInput]): ListItemsConnection
+  subProfile(entityID: String!, entityType: EntityType!, subProfileID: String!): SubProfile
+  list(entityID: String!, entityType: EntityType!, listID: String!, filters: FilterInputs, first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString): List
+  profile(entityID: String!, entityType: EntityType!, platform: NextPlatform): Profile
+  dataBlocks(blockID: String!, entityID: String!, entityType: EntityType!, platform: NextPlatform, filters: FilterInputs): [Block!]
+  chart(origin: MaybeString, chartID: String!, entityID: String!, entityType: EntityType!, filters: FilterInputs, platform: NextPlatform): Chart
+  table(first: Int, last: Int, after: String, before: String, id: String!, entityID: String!, entityType: EntityType, filters: FilterInputs): TableRowConnection
+  graph(graphID: String!, entityID: String!, entityType: EntityType!, filters: FilterInputs, platform: NextPlatform): Graph
+  infoFlow(first: Int, last: Int, after: String, before: String, funcID: String!, filters: FilterInputs, entityID: String!, entityType: EntityType!, platform: NextPlatform): InfoFlowConnection
+  modal(entityID: String!, entityType: EntityType!, modalID: String!): Modal
+  overviewModal(entityID: String!, entityType: EntityType!, modalID: MaybeString): OverviewModal
+  keyValueMap(funcID: String!, requestBody: MaybeString, platform: NextPlatform): KeyValueMapResponse
+  modalData(entityID: String!, entityType: LegacyEntityType!, modalID: String!): ModalData
+  profileTabSections(entityID: String!, entityType: EntityType!, tabID: String!, platform: NextPlatform, filters: FilterInputs): [Section!]!
+  progressBar(progressBarID: String!, entityID: String!, entityType: EntityType!, filters: FilterInputs, platform: NextPlatform): ProgressBar
+  statementSheet(statementSheetID: String!, entityID: String!, entityType: EntityType!, filters: FilterInputs, platform: NextPlatform): StatementSheet
+  suggestions(first: Int, last: Int, after: String, before: String, suggestTypes: [SuggestType!], query: String!, platform: Platform, descriptionLength: Int): SuggestionConnection!
+  quickSearch(searchType: String!, query: String!, first: Int, last: Int, after: String, before: String, platform: NextPlatform, filter: FilterInputs): QuickSearchConnection!
+  quickSearchTabs: [QuickSearchTab!]!
+  incrementEntityClickThrough(nodeId: String!, searchType: String!): Boolean!
+  quickSearchLatestView(first: Int, last: Int, after: String, before: String, platform: NextPlatform): QuickSearchConnection!
+  quickSearchTrending(first: Int, last: Int, after: String, before: String, platform: NextPlatform): QuickSearchConnection!
+  appRealms: [AppRealm]!
+  appRealmSearchResult(realmID: String!, first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, conditions: [NextSearchConditionInput]!, orderColumns: [OrderColumn]): AppRealmSearchResult
+  realmTabs(realmID: String!): [Tab]!
+  realmTabSections(tabID: String!, realmID: String!): [Section!]!
+  realmSheet(realmID: String!, sheetID: String!, first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, conditions: [NextSearchConditionInput]!, columnIDs: [String!]!, templateID: MaybeString, orderColumns: [OrderColumn]): SheetConnection
+  realmChart(realmID: String!, chartID: String!, conditions: [NextSearchConditionInput]!): Chart
+  realmDataBlocks(realmID: String!, blockID: String!, conditions: [NextSearchConditionInput]!): [Block!]
+  searchTemplate(id: String!): SearchTemplate
+  searchTemplates(first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, sortBy: SearchTemplatesSortBy!, isDesc: Boolean!, realmID: MaybeString): SearchTemplateConnection!
+  presetTemplates(first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, realmID: String!): PresetTemplateConnection!
+  risk(first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, filter: RiskFilter!): RiskConnection!
+  realmSuggestions(first: Int, last: Int, after: String, before: String, suggestionId: String!, query: String!): RealmSuggestionConnection!
+  appRealmSuggestions(first: MaybeInt32, last: MaybeInt32, after: MaybeString, before: MaybeString, suggestionId: String!, query: String!): RealmSuggestionConnection!
+  isPurchaserContactExist: Boolean!
+  appTrackerTimeline(timelineID: String!, first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, trackerTheme: TrackerTheme!, filters: FilterInputs): AppTimelineConnection
+  appTrackerTabs(trackerTheme: TrackerTheme!): [Tab]!
+  trackedEntities(trackerTheme: TrackerTheme!, first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString): EntityConnection
+  appTrackerRecommendations(trackerTheme: TrackerTheme!): [Recommendation]
+  appTrackedEntityCount(trackerTheme: TrackerTheme!): TrackedEntityCount
+  appTrackerTags(trackerTheme: TrackerTheme!): [TrackerTag]
+  appTrackableTheme(entityID: String!, entityType: EntityType!): TrackableTheme
+  isTracked(trackerTheme: TrackerTheme!, entities: [EntityInput]!): MaybeBool!
+  trackedEntityCount(trackerTheme: TrackerTheme!): TrackedEntityCount
+  trackerTags(trackerTheme: TrackerTheme!): [TrackerTag]
+  tagsWithTrackedCount(trackingIds: [String!], trackerTheme: TrackerTheme!): [TrackerTagWithTrackedCount]
+  trackerSheet(sheetID: String!, first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, filters: FilterInputs, trackerTheme: TrackerTheme!, orderColumns: [OrderColumn]): SheetConnection
+  trackerTimeline(timelineID: String!, first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, entityRequests: [EntityInput]!, trackerTheme: TrackerTheme!, filters: FilterInputs): TimelineConnection
+  trackableTheme(entityID: String!, entityType: EntityType!): TrackableTheme
+  trackerSuggestions(first: MaybeInt32, after: MaybeString, last: MaybeInt32, before: MaybeString, keyword: String!, trackerTheme: TrackerTheme!): TrackerSuggestionConnection
+  trackerTabs(trackerTheme: TrackerTheme!): [Tab]!
+  trackerRecommendations(trackerTheme: TrackerTheme!): [Recommendation]
+  overview(funcID: String!, condition: VBSearchConditionInput!): MaybeString
+  topSearches: [TopSearchItem]
+  vbSearchTemplate: [SearchTemplateItem]
+  verticalRankings(year: Int32!, quarter: QuarterSequence!, metricsID: String!): [VerticalRanking]
+  verticalMetricsQuarterRange: QuarterRange!
+  verticalMetricsChart(verticalID: MaybeString, metricsID: String!, year: Int32!, quarter: QuarterSequence!): MaybeString
+  user: UserInformation
+  UserPremiumSubscriptionBalance: UserPremiumSubscriptionBalancesResponse!
+  teamByID(teamID: String!): TeamInfo!
+  teams: [TeamInfo]!
+  invitation(teamID: String!, expiredHour: Int32!): InvitationCode!
+  usersByTeam(teamID: String!): [UserInfo]!
+  invitationDetail(invitationCode: String!): InvitationInformation!
+  bussinessCardDetail: BusinessCardInformation!
+  isEmailBindingRequired: IsEmailBindingRequiredResponse!
+  userProfile: UserProfile
+  isRegisteredContact(contactInfo: String!, contactType: ContactType!): MaybeBool
+}
+
+enum QueryType {
+  UNION
+  INTERSECTION
+}
+
+type QuickSearchConnection {
+  permissions: [Permission!]
+  totalCount: Int!
+  nodes: [QuickSearchNode!]
+  edges: [QuickSearchEdge!]
+  pageInfo: PageInfo!
+}
+
+type QuickSearchEdge {
+  node: QuickSearchNode
+  cursor: String!
+}
+
+type QuickSearchEntityNode {
+  searchType: String!
+  nodeId: String!
+  title: MaybeString
+  subtitle: MaybeString
+  description: MaybeString
+  logoURI: MaybeString
+  tags: [Tag!]
+  footnote: MaybeString
+  highlightTexts: [String!]
+  action: Action
+}
+
+type QuickSearchInfoFlowNode {
+  searchType: String!
+  nodeId: String!
+  title: MaybeString
+  subtitle: MaybeString
+  description: MaybeString
+  imageURI: MaybeString
+  tags: [Tag!]
+  footnote: MaybeString
+  highlightTexts: [String!]
+  action: Action
+  publishTime: MaybeInt64
+  relatedEntity: [Entity]
+}
+
+union QuickSearchNode = QuickSearchEntityNode | QuickSearchInfoFlowNode
+
+type QuickSearchTab {
+  lockPermission: LockPermission!
+  title: String!
+  searchType: String!
+}
+
+type QuickSearchTag {
+  icon: String
+  nameType: String
+  matchedName: String
+}
+
+type RealmSuggestion {
+  id: String!
+  entityType: EntityType
+  primaryName: String!
+  description: MaybeString
+  logo: MaybeString
+}
+
+type RealmSuggestionConnection {
+  totalCount: Int32!
+  nodes: [RealmSuggestion]
+  edges: [RealmSuggestionEdge]
+  pageInfo: PageInfo!
+  permissions: [Permission!]
+}
+
+type RealmSuggestionEdge {
+  node: RealmSuggestion!
+  cursor: String!
+}
+
+type Recommendation {
+  entityID: String!
+  entityType: EntityType
+  primaryName: String!
+  logoURI: String!
+}
+
+type RelevantGroupCount {
+  groupCode: String
+  count: Int32
+}
+
+type RemainingExport {
+  total: Int32!
+  remaining: Int32!
+}
+
+input RenameTemplateInput {
+  templateId: String!
+  name: MaybeString
+}
+
+input RequestID {
+  id: String!
+}
+
+type RiskConnection {
+  totalCount: Int32
+  edges: [RiskEdge]
+  nodes: [RiskNode]
+  pageInfo: PageInfo!
+}
+
+type RiskEdge {
+  node: RiskNode
+  cursor: String
+}
+
+input RiskFilter {
+  entityRequest: EntityInput!
+  startTime: MaybeString
+  endTime: MaybeString
+  tagIDs: [String!]
+}
+
+type RiskNode {
+  riskType: RiskType!
+  title: String!
+  source: MaybeString
+  publishDate: String!
+  tagID: String!
+  tagName: String!
+  negativeSentimentLevel: MaybeInt32
+  abstract: MaybeString
+  content: MaybeString
+}
+
+type RiskTag {
+  level: Int32
+}
+
+enum RiskType {
+  NONE
+  EVENT
+  SENTIMENT
+}
+
+enum Role {
+  INDIVIDUAL_FREE
+  INDIVIDUAL_PREMIUM
+  BASIC
+  EXPIRED
+  TRIAL
+  ACTIVE
+}
+
+input SaveTemplateInput {
+  templateId: String!
+  conditions: [NextSearchConditionInput]
+}
+
+type SearchConditionOption {
+  name: String!
+  values: [String!]!
+  operator: NextOperator!
+  id: String!
+}
+
+input SearchConditionOptionInput {
+  name: String!
+  values: [String!]!
+  operator: NextOperator!
+  id: String!
+}
+
+type SearchResultConnection {
+  totalCount: Int32!
+  edges: [SearchResultEdge]
+  nodes: [SearchResultNode]
+  pageInfo: PageInfo!
+}
+
+type SearchResultEdge {
+  node: SearchResultNode!
+  cursor: String!
+}
+
+type SearchResultNode {
+  id: String!
+  entityType: EntityType!
+  data: String!
+}
+
+type SearchTemplate {
+  id: String
+  name: String
+  lastViewedAt: Int
+  templateInfo: SearchTemplateInfo
+  conditions: [NextSearchCondition]
+  realmID: String
+}
+
+type SearchTemplateConnection {
+  totalCount: Int!
+  edges: [SearchTemplateEdge]
+  nodes: [SearchTemplate]
+  pageInfo: PageInfo!
+}
+
+type SearchTemplateEdge {
+  node: SearchTemplate
+  cursor: String!
+}
+
+type SearchTemplateGeneralResponse {
+  templateID: String
+  success: Boolean!
+}
+
+type SearchTemplateInfo {
+  statistics: [SearchTemplateInfoItem]
+  notifications: [SearchTemplateInfoItem]
+}
+
+type SearchTemplateInfoItem {
+  title: String
+  value: String
+}
+
+type SearchTemplateItem {
+  templateName: String
+  templateID: String
+  numberOfCompanies: Int32!
+  new_businesses: Int32!
+  new_deal: Int32!
+  icons: [String!]!
+  condition: TemplateSearchCondition
+}
+
+enum SearchTemplatesSortBy {
+  LAST_VIEWED_AT
+  LAST_NOTIFIED_AT
+}
+
+union Section = TableSection | ChartSection | BlockSection | GraphSection | ProgressBarSection | StatementSheetSection | ListSection | InfoFlowSection
+
+type SectionedDisplayTab {
+  id: String!
+  name: String!
+  modifier: Modifier
+  filters: [Filter]
+  permissions: [Permission!]
+}
+
+type SelectorFilter {
+  id: String
+  icon: MaybeString
+  options: [FilterOption]
+  name: MaybeString
+  operator: MaybeString
+  multiple: MaybeBool
+  defaultValue: MaybeString
+  split: MaybeBool
+  outsideNameFormatter: MaybeString
+  showNumberOfFilters: MaybeBool
+}
+
+input SelectorFilterInput {
+  filterID: String
+  filterValue: String!
+  operator: MaybeString
+  name: MaybeString
+  displayValue: MaybeString
+}
+
+type SheetConnection {
+  totalCount: Int32
+  edges: [SheetRowEdge]
+  nodes: [SheetRowNode]
+  pageInfo: PageInfo!
+  permissions: [Permission!]
+}
+
+type SheetRowEdge {
+  node: SheetRowNode
+  cursor: String
+}
+
+type SheetRowNode {
+  entityID: MaybeString
+  entityType: EntityType
+  data: String
+  id: MaybeString
+}
+
+type SheetTab {
+  id: String!
+  name: String!
+  modifier: Modifier
+  filters: [Filter]
+  permissions: [Permission!]
+  sheetID: String!
+}
+
+enum SQLOperator {
+  ANY
+  BETWEEN
+  EQUAL
+  UN_EQUAL
+  MORE_THAN
+  LESS_THAN
+  IN
+}
+
+type StatementSheet {
+  rowConfigs: [StatementSheetRowConfig!]
+  columns: [StatementSheetColumn!]
+  rowsData: MaybeString!
+  permissions: [Permission!]
+}
+
+type StatementSheetColumn {
+  name: String!
+  id: String!
+}
+
+type StatementSheetDataConfig {
+  dataFormat: Format!
+  alignment: Alignment!
+}
+
+type StatementSheetHeaderConfig {
+  description: MaybeString
+  isBold: Boolean!
+  foldable: Boolean!
+  isExpanded: Boolean!
+}
+
+type StatementSheetRowConfig {
+  rowID: String!
+  headerConfig: StatementSheetHeaderConfig!
+  dataConfig: StatementSheetDataConfig
+}
+
+type StatementSheetSection {
+  id: String!
+  name: String!
+  modifier: Modifier
+  filters: [Filter!]
+  statementSheetIDs: [String!]!
+  footnotes: [Footnote!]
+  abbreviation: MaybeString
+  permissions: [Permission!]
+}
+
+enum Status {
+  SUCCESS
+  FAIL
+  RUNNING
+  TIMEOUT
+}
+
+scalar StringMap
+
+type SubProfile {
+  title: MaybeString
+  modifier: Modifier
+  filters: [Filter]
+  sections: [Section]
+  permissions: [Permission!]
+}
+
+input SubscribeEntityInput {
+  entityId: String!
+  entityType: EntityType!
+}
+
+type SubscriptionEntity {
+  entityId: String!
+  entityType: EntityType!
+}
+
+type Suggestion {
+  id: String!
+  entityType: EntityType
+  score: Float32!
+  matchedNames: [String]!
+  primaryName: String!
+  description: String
+  logo: String!
+  shortDescription: String
+  label: String
+  miniLabel: String
+}
+
+type SuggestionConnection {
+  totalCount: Int32!
+  nodes: [Suggestion]
+  edges: [SuggestionEdge]
+  pageInfo: PageInfo!
+}
+
+type SuggestionEdge {
+  node: Suggestion!
+  cursor: String!
+}
+
+type SuggestionFilter {
+  id: String
+  name: MaybeString
+  suggestionID: String
+  placeholder: MaybeString
+}
+
+input SuggestionFilterInput {
+  filterID: String!
+  values: [String]
+  name: MaybeString
+  displayValue: MaybeString
+}
+
+enum SuggestType {
+  SUGGEST_TYPE_LOCATION
+  SUGGEST_TYPE_VERTICAL
+  SUGGEST_TYPE_COMPANY
+  SUGGEST_TYPE_INSTITUTIONAL_INVESTOR
+  SUGGEST_TYPE_PERSON
+  SUGGEST_TYPE_FUND
+  SUGGEST_TYPE_FUND_FOF
+  SUGGEST_TYPE_LIMITED_PARTNER
+  SUGGEST_TYPE_ORGANIZATION
+  SUGGEST_TYPE_OTHER_ORG_SAIC
+}
+
+union Tab = InfoFlowTab | SectionedDisplayTab | SheetTab | ArticleTab | TimelineTab
+
+type TableRow {
+  JSONValue: String
+}
+
+type TableRowConnection {
+  totalCount: Int32
+  edges: [TableRowEdge]
+  nodes: [TableRow]
+  pageInfo: PageInfo!
+  permissions: [Permission!]
+}
+
+type TableRowEdge {
+  node: TableRow
+  cursor: String
+}
+
+type TableSection {
+  id: String!
+  name: String!
+  abbreviation: MaybeString
+  filters: [Filter!]
+  modifier: Modifier
+  footnotes: [Footnote!]
+  permissions: [Permission!]
+  count: MaybeInt32
+  tableIDs: [String!]!
+  action: Action
+}
+
+union Tag = TextTag | RiskTag | QuickSearchTag
+
+type TagBlock {
+  name: MaybeString
+  width: Float32!
+  tags: [Tag!]!
+}
+
+enum TagID {
+  ALL
+  COMPANY
+  PERSON
+  VERTICAL
+}
+
+enum TaskStatus {
+  DRAFT
+  MATCHED
+  MATCHING
+  COMPLETE
+}
+
+type TeamEntitiesConnection {
+  totalCount: Int32!
+  nodes: [TeamEntity!]
+  edges: [TeamEntityEdge!]
+  pageInfo: PageInfo!
+}
+
+type TeamEntity {
+  entityID: MaybeString
+  entityType: EntityType
+}
+
+type TeamEntityEdge {
+  node: TeamEntity!
+  cursor: String!
+}
+
+enum TeamGroupId {
+  INSTITUTIONAL_SUBJECT
+  FOF
+  FUND
+  INVESTED_FUND
+  INVESTED_COMPANY
+  INVESTED_FUND_INVESTMENTS
+  LP
+  CO_INS_INVESTOR
+  VERTICAL_PREFERENCE
+}
+
+type TeamInfo {
+  id: String!
+  name: String!
+  portraitUri: MaybeString
+  entityId: MaybeString
+  entityType: EntityType
+}
+
+type TemplateSearchCondition {
+  keywords: [String!]!
+  locationID: [String!]!
+  latestDealTypes: [String]
+  topPlayerInvested: MaybeBool
+  foundedYear: MaybeString
+}
+
+input TemplateSearchConditionInput {
+  keywords: [String!]!
+  locationID: [String!]!
+  latestDealTypes: [String]
+  topPlayerInvested: MaybeBool
+  foundedYear: MaybeString
+}
+
+type TextAreaBlock {
+  name: MaybeString
+  width: Float32!
+  content: String!
+}
+
+type TextTag {
+  name: String
+  action: Action
+}
+
+type Ticket {
+  id: String!
+  type: String!
+  state: String!
+  creatorId: String!
+  teamId: String
+  payload: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type TimelineConnection {
+  totalCount: Int!
+  edges: [TimelineRowEdge]
+  nodes: [TimelineRowNode]
+  pageInfo: PageInfo!
+  permissions: [Permission!]
+  entity: Entity
+}
+
+type TimelineRowEdge {
+  node: TimelineRowNode
+  cursor: String!
+}
+
+type TimelineRowNode {
+  time: Int!
+  data: String!
+  tags: [Tag!]
+}
+
+type TimelineTab {
+  id: String!
+  name: String!
+  modifier: Modifier
+  filters: [Filter]
+  permissions: [Permission!]
+  timelineID: String!
+  timelineType: TimelineType!
+}
+
+enum TimelineType {
+  TIMELINE_TYPE_OTHER
+  TIMELINE_TYPE_NEWS
+}
+
+type TimelyMessageConnection {
+  count: Int32
+  messages: [TimelyMessagesItem]!
+}
+
+type TimelyMessagesItem {
+  messageId: String
+  messageType: MessageType
+  comType: CommunicationType
+}
+
+scalar Timestamp
+
+type TopSearchItem {
+  title: String!
+  numberOfCompanies: Int32!
+  newBusinesses: Int32!
+  newDeal: Int32!
+  icons: [String!]!
+  condition: TemplateSearchCondition!
+}
+
+type TrackableTheme {
+  trackerTheme: TrackerTheme!
+  isTracked: Boolean!
+}
+
+type TrackedEntityCount {
+  count: Int32!
+}
+
+type TrackerSuggestion {
+  entityID: String!
+  entityType: EntityType
+  primaryName: String!
+  isTracked: Boolean!
+  logo: MaybeString
+  trackingID: MaybeString
+}
+
+type TrackerSuggestionConnection {
+  totalCount: Int32!
+  nodes: [TrackerSuggestion]
+  edges: [TrackerSuggestionEdge]
+  pageInfo: PageInfo!
+}
+
+type TrackerSuggestionEdge {
+  node: TrackerSuggestion!
+  cursor: String!
+}
+
+type TrackerTag {
+  id: String
+  name: String
+}
+
+input TrackerTagWithAddToTrackingFlag {
+  tagName: String!
+  isAdding: Boolean!
+}
+
+type TrackerTagWithTrackedCount {
+  id: String
+  name: String
+  count: Int
+}
+
+enum TrackerTheme {
+  TRACKER_THEME_UNSPECIFIED
+  TRACKER_THEME_INSTITUTION
+  TRACKER_THEME_ENTERPRISE
+  TRACKER_THEME_VERTICAL
+}
+
+enum TypeOrder {
+  AliPayMobile
+  WechatPayMobile
+  ApplePay
+  AliPayWeb
+  WechatPayWeb
+  None
+}
+
+input UpdateCommodityRequest {
+  id: String!
+  name: MaybeString!
+  amount: MaybeFloat32!
+  day: MaybeInt32!
+  serviceID: MaybeString!
+}
+
+input UpdateUserInfoInput {
+  userName: MaybeString
+  description: MaybeString
+  avatarURL: MaybeString
+}
+
+input UpdateUserProfileInput {
+  fields: [UserProfileFieldInput]
+}
+
+scalar Upload
+
+type UserExportHistoryConnection {
+  totalCount: Int32!
+  edges: [ExportRecordEdge]
+  nodes: [ExportRecord]
+  pageInfo: PageInfo
+}
+
+type UserFollowedRecommendation {
+  entities: [Entity!]
+}
+
+type UserFollowEntity {
+  id: String!
+  entityId: MaybeString!
+  entityType: EntityType!
+  primaryName: MaybeString
+  legalName: MaybeString
+  tags: [CollectionTag!]!
+  groups: [CollectionGroup!]!
+  jsonValue: String!
+  primaryPortraitUri: MaybeString
+  description: MaybeString
+}
+
+type UserFollowEntityConnection {
+  totalCount: Int32!
+  nodes: [UserFollowEntity!]!
+  edges: [UserFollowEntityEdge!]!
+  pageInfo: PageInfo!
+}
+
+type UserFollowEntityEdge {
+  node: UserFollowEntity!
+  cursor: String!
+}
+
+type UserInfo {
+  userID: String!
+  userName: String!
+  avatar: String!
+  createdAt: Int32!
+  inviterUsername: String!
+  email: String!
+}
+
+type UserInformation {
+  userID: String!
+  role: Role!
+  userName: String
+  avatarURL: String
+  description: String
+  email: String
+  phone: MaybeString
+  hasBoundWechat: MaybeBool
+}
+
+type UserPremiumSubscriptionBalancesResponse {
+  userID: String!
+  serviceID: String!
+  serviceEndTime: Int64!
+}
+
+type UserProfile {
+  fields: [UserProfileField]
+}
+
+type UserProfileField {
+  name: String!
+  isRequired: MaybeBool
+  title: String!
+  options: [UserProfileFieldOption]
+  selectedOptions: [UserProfileFieldOption]
+  isMultiple: MaybeBool
+}
+
+input UserProfileFieldInput {
+  name: String!
+  selectedOptions: [UserProfileFieldOptionInput]
+}
+
+type UserProfileFieldOption {
+  name: String!
+  value: String!
+}
+
+input UserProfileFieldOptionInput {
+  name: String!
+  value: String!
+}
+
+type VBSearchCondition {
+  keywords: [String!]!
+  locationID: MaybeString
+  latestDealTypes: [String]
+  topPlayerInvested: MaybeBool
+  foundedYear: MaybeString
+}
+
+input VBSearchConditionInput {
+  keywords: [String!]!
+  locationID: MaybeString
+  latestDealTypes: [String]
+  topPlayerInvested: MaybeBool
+  foundedYear: MaybeString
+}
+
+enum VBSearchType {
+  COMPANY
+  DEAL
+  INS_INVESTOR
+}
+
+type VBTableRow {
+  entityID: String!
+  entityType: EntityType!
+  jsonValue: String!
+}
+
+type VBTableRowConnection {
+  totalCount: Int32
+  edges: [VBTableRowEdge]
+  nodes: [VBTableRow]
+  pageInfo: PageInfo!
+}
+
+type VBTableRowEdge {
+  node: VBTableRow
+  cursor: String
+}
+
+input VerifyCodeInput {
+  contactType: ContactType!
+  verificationCode: String!
+  contactInfo: String!
+  tokenString: String!
+}
+
+type VerticalRanking {
+  verticalID: String
+  verticalName: String
+  score: Float32
+}
+
+type WebProfile {
+  primaryName: String
+  logoURI: MaybeString
+  tabs: [Tab]!
+}
+
+type YearFilter {
+  id: String
+  icon: MaybeString
+  min: MaybeInt32
+  max: MaybeInt32
+  name: MaybeString
+  operator: MaybeString
+}
+

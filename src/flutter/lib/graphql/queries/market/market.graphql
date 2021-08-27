@@ -1,0 +1,44 @@
+query Commodity($osType: OSType!) {
+  commodity(osType: $osType) {
+    id
+    name
+    amount
+    day
+    serviceID
+  }
+}
+
+query CheckPayment($orderID: String!) {
+  checkPayment(orderID: $orderID)
+}
+
+query UserOrders($offset: MaybeInt32!, $limit: MaybeInt32!) {
+  userOrders(offset: $offset, limit: $limit) {
+    count
+    myOrder {
+      orderID
+      commodityID
+      commodityName
+      orderStats
+      typeOrder
+      amount
+      createTime
+      day
+    }
+  }
+}
+
+query OrderByID($orderID: String!) {
+  orderByID(orderID: $orderID) {
+    orderID
+    commodityID
+    orderStats
+    typeOrder
+    amount
+    createTime
+    updateTime
+    day
+    commodityName
+  }
+}
+

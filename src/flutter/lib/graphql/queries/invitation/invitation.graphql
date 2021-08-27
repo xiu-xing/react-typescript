@@ -1,0 +1,14 @@
+query Invitation ($teamID: String! $expiredHour: Int32!){
+    invitation(teamID: $teamID expiredHour: $expiredHour) {
+        invitationCode
+    }
+}
+
+query InvitationDetail($invitationCode: String!) {
+    invitationDetail(invitationCode: $invitationCode) {
+        invitee
+        invitationCode
+        teamName
+        logoUrl
+    }
+}
