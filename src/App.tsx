@@ -3,6 +3,7 @@ import { Theme, makeStyles, createStyles, ButtonBase, Container, ButtonGroup, Ch
 import FromWrapper from './components/fromWapper';
 import BasicTextField from './components/basic-text-field';
 import Counter from './contains/for-exmaple';
+import Scroll from './pages/scroll';
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,42 +26,11 @@ const useStyle = makeStyles((theme: Theme) =>
 
 const App: React.FunctionComponent<{}> = () => {
   const classes = useStyle();
-  function CounterDisplay() {
-    let counter = Counter.useContainer()
-    return (
-      <div>
-        <button onClick={counter.decrement}>-</button>
-        <p>You clicked {counter.count} times</p>
-        <button onClick={counter.increment}>+</button>
-        <div>
-          <div>
-            <div>
-              <div>SUPER EXPENSIVE RENDERING STUFF</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
   return (
-    <FromWrapper title="提交表单" onSubmit={() => { }}>
-      <BasicTextField
-        required
-        label="姓名"
-        helperText="请输入您的姓名"
-        variant="standard"
-      />
-      <BasicTextField
-        required
-        label="电话"
-        helperText="请输入您的电话"
-        variant="standard" />
-      <Input type="number" defaultValue="Hello world" inputProps={{ 'aria-label': 'description' }} />
-      {/* //Provider */}
+    <Counter.Provider>
+      <Scroll />
+    </Counter.Provider>
 
-
-
-    </FromWrapper>
   );
 }
 
