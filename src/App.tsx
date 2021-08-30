@@ -2,8 +2,13 @@ import React from 'react';
 import { Theme, makeStyles, createStyles, ButtonBase, Container, ButtonGroup, Checkbox, Typography, IconButton, TextField, Input, Box, Link } from '@material-ui/core';
 import FromWrapper from './components/fromWapper';
 import BasicTextField from './components/basic-text-field';
+<<<<<<< HEAD
 import Counter from './containers/userContainer';
 import LabTabs from './pages/tabpanel';
+=======
+import Counter from './contains/for-exmaple';
+import Scroll from './pages/scroll';
+>>>>>>> f5c1b2677eb268fe9431db35b01f06ea177a2f8b
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,24 +31,8 @@ const useStyle = makeStyles((theme: Theme) =>
 
 const App: React.FunctionComponent<{}> = () => {
   const classes = useStyle();
-  function CounterDisplay() {
-    let counter = Counter.useContainer()
-    return (
-      <div>
-        <button onClick={counter.decrement}>-</button>
-        <p>You clicked {counter.count} times</p>
-        <button onClick={counter.increment}>+</button>
-        <div>
-          <div>
-            <div>
-              <div>SUPER EXPENSIVE RENDERING STUFF</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
   return (
+<<<<<<< HEAD
     <FromWrapper title="提交表单" onSubmit={() => { }}>
       <BasicTextField
         required
@@ -63,6 +52,12 @@ const App: React.FunctionComponent<{}> = () => {
       </Box>
       <LabTabs/>
     </FromWrapper>
+=======
+    <Counter.Provider>
+      <Scroll />
+    </Counter.Provider>
+
+>>>>>>> f5c1b2677eb268fe9431db35b01f06ea177a2f8b
   );
 }
 
