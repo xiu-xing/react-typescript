@@ -1,6 +1,6 @@
 import { Box } from "@material-ui/core";
 import React from "react";
-import Counter from "../../contains/for-exmaple";
+import Counter from "../../containers/userContainer";
 import SearchInput from "./components/search_input";
 
 const Scroll: React.FunctionComponent<{}> = () => {

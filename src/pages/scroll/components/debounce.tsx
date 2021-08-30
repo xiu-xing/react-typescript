@@ -11,7 +11,7 @@ const Debounce: React.FunctionComponent<{}> = () => {
       if (immade) {
         var isNow = !timer;
         timer = setTimeout(function () {
-          timer = "";
+          timer = null;
         }, waitTime)
         if (isNow) {
           callback.apply(that, args)
