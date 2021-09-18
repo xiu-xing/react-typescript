@@ -5,13 +5,14 @@ import Counter from "./containers/userContainer";
 import BreakPoint from "./pages/break-point";
 import StateHook from "./pages/react-hooks/state_hook";
 
+
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: "100vh",
       background: "#fff",
       display: "flex",
-      margin:"auto",
+      margin: "auto",
     },
   })
 );
@@ -23,7 +24,7 @@ const App: React.FunctionComponent<{}> = () => {
       <Counter.Provider>
         {/* <Scroll /> */}
         {/* <BreakPoint/> */}
-        <StateHook />
+        {/* <StateHook /> */}
       </Counter.Provider>
     </Box>
   );
