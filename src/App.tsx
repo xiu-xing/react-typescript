@@ -24,7 +24,7 @@ const App: React.FunctionComponent<{}> = () => {
       <Counter.Provider>
         {/* <Scroll /> */}
         {/* <BreakPoint/> */}
-        {/* <StateHook /> */}
+        <StateHook />
       </Counter.Provider>
     </Box>
   );
