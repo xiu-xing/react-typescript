@@ -23,7 +23,7 @@ const App: React.FunctionComponent<{}> = () => {
     <Box maxWidth={"80%"} className={classes.root}>
       <Counter.Provider>
         {/* <Scroll /> */}
-        {/* <BreakPoint/> */}
+        <BreakPoint />
         <StateHook />
       </Counter.Provider>
     </Box>
