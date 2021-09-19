@@ -1,3 +1,2 @@
-1、git commit 取消某次远程提交的commit message
-    git rebase -i HEAD^2 // 回退到倒数第二次提交
-    git commit 
+1、git commit 取消远程提交
+  
