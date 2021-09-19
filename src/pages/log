@@ -1,11 +1,17 @@
 1、git commit 取消某次远程提交的commit message
+<<<<<<< HEAD
     (1) no have conflict
     git rebase -i de998df // 回退到倒数某次提交 28fa560:某次提交
+=======
+    (1) 没有冲突
+    git rebase -i de998df // 回退到倒数第二次提交 de998df:某次提交
+>>>>>>> 98c3456 (There is no conflict commit message)
     修改de998df之后的某次提交的commit message
     1、修改对应提交的pick为edit,保存
     2、git commit --amend //修改message信息
     3、git rebase --continue //继续rebase
     4、git push origin HEAD^ -f
+<<<<<<< HEAD
     (2) have conflict
     git rebase -i de998df // 回退到倒数某次提交 de998df:某次提交
     修改de998df之后的某次提交的commit message
@@ -22,3 +28,9 @@
 
 
     
+=======
+
+
+
+    
+>>>>>>> 98c3456 (There is no conflict commit message)
