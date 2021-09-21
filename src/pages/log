@@ -17,3 +17,4 @@
     4、git commit --amend //修改message信息
     5、git rebase --continue //继续rebase
     6、git push origin main-xul -f
+    ..//将pick change reword 只做修改message操作
