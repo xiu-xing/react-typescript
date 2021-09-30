@@ -1,0 +1,280 @@
+import { Box, CircularProgress, createStyles, makeStyles, Tab, Theme, Typography, withStyles } from "@material-ui/core";
+import { TabContext, TabList } from "@material-ui/lab";
+import { get } from "lodash";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useClient } from "urql";
+import { APPBAR_HEIGHT } from "../../containers/appContainer";
+import {
+  NewsThemeListItem,
+  PageInfo,
+  ResearchReportListItem,
+  SaveType,
+  UserSaveDocument,
+  UserSaveQuery,
+  UserSaveQueryVariables,
+  UserSaveResponse,
+  useUnSaveMutation,
+} from "../../generated/graphql";
+import SnackbarContainer from "../common/snackbar/snackbarContainer";
+import { TAB_HEIGHT, TAB_WIDTH } from "../profile/content/tabs/tab";
+import ArticleCollectionItem from "./components/article-collection-item";
+import NewsCollectionItem from "./components/news-collection-item";
+import NoData from "./components/no-data/no-data";
+import { saveTypes, saveTypeText } from "./const";
+
+const StyledTabList = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      minHeight: TAB_HEIGHT,
+      "& .MuiTabs-flexContainer": {
+        "& button:not(:last-child)": {
+          marginRight: 32,
+        },
+      },
+    },
+    indicator: {
+      height: 3,
+      backgroundColor: theme.palette.primary.main,
+    },
+  }),
+)(TabList);
+
+const StyledTab = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      position: "relative",
+      minWidth: TAB_WIDTH,
+      minHeight: TAB_HEIGHT,
+      padding: "10px 4px",
+      lineHeight: 1.72,
+      textTransform: "none",
+      overflow: "visible",
+    },
+    textColorInherit: {
+      color: "#999",
+      opacity: 1,
+    },
+    selected: {
+      color: theme.palette.primary.main,
+      fontWeight: 500,
+    },
+  }),
+)(Tab);
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      maxHeight: `calc(100vh - ${APPBAR_HEIGHT}px)`,
+      overflowY: "auto",
+      overflowX: "hidden",
+      height: "100vh",
+    },
+    title: {
+      fontSize: 20,
+    },
+  }),
+);
+
+const Collection: React.FunctionComponent = () => {
+  const classes = useStyles();
+  const ref = useRef<OverlayScrollbarsComponent | null>(null);
+  const [saveType, setSaveType] = useState(saveTypes[0]);
+  const client = useClient();
+  const [fetching, setFetching] = useState(false);
+  const { openSnackbar } = SnackbarContainer.useContainer();
+  const [pageInfo, setPageInfo] = useState<Pick<PageInfo, "endCursor" | "hasNextPage">>({
+    hasNextPage: true,
+  });
+  const [news, setNews] = useState<NewsThemeListItem[]>([]);
+  const [article, setArticle] = useState<ResearchReportListItem[]>([]);
+  const [, executeUnSaveMutation] = useUnSaveMutation();
+
+  const query = useCallback(
+    async (type: SaveType, after?: string) => {
+      const res = await client
+        .query<UserSaveQuery, UserSaveQueryVariables>(
+          UserSaveDocument,
+          {
+            saveType: type,
+            first: 10,
+            after: after,
+          },
+          { requestPolicy: "network-only" },
+        )
+        .toPromise();
+      return res;
+    },
+    [client],
+  );
+
+  function getCollection() {
+    setFetching(true);
+    query(saveType)
+      .then((res) => {
+        const data: UserSaveResponse = res.data?.userSave as UserSaveResponse;
+        if (res.error) {
+          openSnackbar("请求出错", "error");
+        }
+        switch (saveType) {
+          case SaveType.SaveTypeNews: {
+            const nodes: NewsThemeListItem[] = get(res, ["data", "userSave", "nodes"]);
+            setNews(nodes);
+            break;
+          }
+
+          case SaveType.SaveTypeResearchReport: {
+            const nodes: ResearchReportListItem[] = get(res, ["data", "userSave", "nodes"]);
+            setArticle(nodes);
+            break;
+          }
+
+          default:
+            break;
+        }
+
+        const page: PageInfo = get(res, ["data", "userSave", "pageInfo"]);
+        setPageInfo({
+          hasNextPage: page?.hasNextPage,
+          endCursor: page?.endCursor,
+        });
+      })
+      .finally(() => setFetching(false));
+  }
+
+  function getVisiblityChange() {
+    if (document.visibilityState == "visible") {
+      setTimeout(() => {
+        getCollection();
+      }, 2000);
+    }
+  }
+
+  useEffect(() => {
+    getCollection();
+    document.addEventListener("visibilitychange", getVisiblityChange);
+    return () => window.removeEventListener("visibilitychange", getVisiblityChange);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [saveType]);
+
+  const handleScroll = useCallback(() => {
+    if (ref.current?.osInstance()?.scroll().ratio.y === 1 && pageInfo.hasNextPage) {
+      setFetching(true);
+      query(saveType, pageInfo.endCursor as string)
+        .then((res) => {
+          if (res.error) {
+            openSnackbar("请求出错", "error");
+          }
+          const page: PageInfo = get(res, ["data", "userSave", "pageInfo"]);
+          setPageInfo({
+            hasNextPage: page?.hasNextPage ?? false,
+            endCursor: page?.endCursor,
+          });
+          if (res.data?.userSave.__typename == "NewsThemeList") {
+            const nodes: NewsThemeListItem[] = get(res, ["data", "userSave", "nodes"]);
+            setNews((prev) => [...prev, ...(nodes ?? [])]);
+          }
+        })
+        .finally(() => setFetching(false));
+    }
+  }, [pageInfo.hasNextPage, pageInfo.endCursor, query, saveType, openSnackbar]);
+
+  function handleUnSave(id: string) {
+    executeUnSaveMutation({
+      input: {
+        saveID: id,
+        saveType: SaveType.SaveTypeNews,
+      },
+    }).then((res) => {
+      if (res.data?.unSave) {
+        setNews((collectionData) => collectionData.filter((item) => item.themeID != id));
+        openSnackbar("取消成功", "success");
+        return;
+      }
+      openSnackbar("取消失败", "error");
+    });
+  }
+
+  function noContent(fetching: boolean) {
+    if (fetching) return <CircularProgress color="primary" thickness={2.8} size={30} />;
+    if (news && news.length > 0) {
+      return <Typography style={{ fontSize: 14, color: "#666", paddingBottom: 40 }}>滑到底啦！</Typography>;
+    } else {
+      return <NoData />;
+    }
+  }
+
+  function content() {
+    switch (saveType) {
+      case SaveType.SaveTypeNews:
+        return (
+          <Box>
+            <Box>
+              {news &&
+                news.map((item, index) => (
+                  <NewsCollectionItem key={item.themeID ?? index} node={item} handleUnSave={handleUnSave} />
+                ))}
+            </Box>
+            <Box textAlign="center" marginTop="100px">
+              {noContent(fetching)}
+            </Box>
+          </Box>
+        );
+      case SaveType.SaveTypeResearchReport:
+        return <Box>{article && article.map((item, index) => <ArticleCollectionItem data={item} key={index} />)}</Box>;
+      default:
+        break;
+    }
+  }
+
+  return (
+    <OverlayScrollbarsComponent
+      className={classes.root}
+      ref={ref}
+      options={{
+        callbacks: {
+          onScroll: handleScroll,
+        },
+        overflowBehavior: {
+          x: "hidden",
+          y: "scroll",
+        },
+        scrollbars: {
+          autoHide: "m",
+        },
+      }}
+    >
+      <Box maxWidth={1332} margin="auto">
+        <TabContext value={saveType}>
+          <Box
+            bgcolor="#fff"
+            position="sticky"
+            top={0}
+            paddingBottom="0px"
+            zIndex={10}
+            style={{ padding: "24px 16px 0 16px" }}
+          >
+            <Typography className={classes.title} noWrap>
+              我的收藏
+            </Typography>
+            <Box display="grid" gridTemplateColumns="1fr max-content" alignItems="center" paddingLeft="12px">
+              <StyledTabList onChange={(_, value) => setSaveType(value)}>
+                {saveTypes.map((s) => (
+                  <StyledTab key={s} value={s} label={saveTypeText[s]} />
+                ))}
+              </StyledTabList>
+            </Box>
+            <Box height={8} />
+          </Box>
+          {saveTypes.map((e) => (
+            <Box key={e} hidden={saveType !== e}>
+              {content()}
+            </Box>
+          ))}
+        </TabContext>
+      </Box>
+    </OverlayScrollbarsComponent>
+  );
+};
+
+export default Collection;
